@@ -99,37 +99,36 @@ function renderItem(docSnap) {
   const data = docSnap.data();
   const id = docSnap.id;
 
+  // clone hidden template
   const clone = template.cloneNode(true);
-  clone.style.display = "flex";
-  clone.id = "";
+  clone.style.display = "flex"; // show it
+  clone.id = ""; // remove duplicate ID
 
-  // Find elements inside clone
+  // find elements inside clone
   const titleEl = clone.querySelector(".counter-title");
   const countEl = clone.querySelector(".counter-value");
   const incBtn = clone.querySelector(".inc");
   const decBtn = clone.querySelector(".dec");
 
-  // Set initial content
+  // overwrite placeholder text
   titleEl.textContent = data.name;
+  countEl.textContent = data.count;
 
-  // Optional: display location
-  let locationEl = clone.querySelector(".item-location");
+  let locationEl = clone.querySelector(".counter-location");
   if (!locationEl) {
     locationEl = document.createElement("div");
-    locationEl.className = "item-location";
+    locationEl.className = "counter-location";
     clone.appendChild(locationEl);
   }
   locationEl.textContent = `Location: ${data.location}`;
 
-  countEl.textContent = data.count;
-
-  // Button handlers
+  // button handlers
   incBtn.onclick = () =>
     updateDoc(doc(db, "items", id), { count: increment(1) });
   decBtn.onclick = () =>
     updateDoc(doc(db, "items", id), { count: increment(-1) });
 
-  // live updates
+  // live updates for count & location
   onSnapshot(doc(db, "items", id), (snap) => {
     countEl.textContent = snap.data().count;
     locationEl.textContent = `Location: ${snap.data().location}`;
