@@ -113,10 +113,10 @@ function renderItem(docSnap) {
   titleEl.textContent = data.name;
 
   // Optional: display location
-  let locationEl = clone.querySelector(".counter-location");
+  let locationEl = clone.querySelector(".item-location");
   if (!locationEl) {
     locationEl = document.createElement("div");
-    locationEl.className = "counter-location";
+    locationEl.className = "item-location";
     clone.appendChild(locationEl);
   }
   locationEl.textContent = `Location: ${data.location}`;
