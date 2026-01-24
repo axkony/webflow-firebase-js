@@ -36,6 +36,7 @@ const db = getFirestore(app);
 const addBtn = document.getElementById("add-item-btn");
 const nameInput = document.getElementById("item-name-input");
 const locationSelect = document.getElementById("item-location-select");
+const kindSelect = document.getElementById("item-select-kind");
 const container = document.getElementById("items-container");
 const template = document.querySelector(".item-template");
 
@@ -62,8 +63,9 @@ async function nameExists(name) {
      ========================= */
 addBtn.addEventListener("click", async () => {
   const name = nameInput.value.trim();
-  const location = locationSelect.value; // get selected value
-  if (!name || !location) return;
+  const location = locationSelect.value;
+  const kind = kindSelect.value;
+  if (!name || !location || !kind) return;
 
   if (await nameExists(name)) {
     alert("Item name must be unique");
@@ -73,7 +75,8 @@ addBtn.addEventListener("click", async () => {
   await addDoc(itemsCol, {
     name,
     count: 0,
-    location, // store location
+    location,
+    kind,
     createdAt: serverTimestamp(),
   });
 
