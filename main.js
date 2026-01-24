@@ -36,8 +36,9 @@ const addBtn = document.getElementById("add-item-btn");
 const nameInput = document.getElementById("item-name-input");
 const container = document.getElementById("items-container");
 const template = document.querySelector(".item-template");
+const locationSelect = document.getElementById("item-location-select");
 
-if (!addBtn || !nameInput || !container || !template) {
+if (!addBtn || !nameInput || !container || !template || !locationSelect) {
   console.error("Required elements not found");
 }
 
@@ -60,20 +61,23 @@ async function nameExists(name) {
      ========================= */
 addBtn.addEventListener("click", async () => {
   const name = nameInput.value.trim();
-  if (!name) return;
+  const location = locationSelect.value; // get selected value
+  if (!name || !location) return;
 
   if (await nameExists(name)) {
-    alert("Bereits inventarisiert unter selbem Namen");
+    alert("Item name must be unique");
     return;
   }
 
   await addDoc(itemsCol, {
     name,
     count: 0,
+    location, // store location
     createdAt: serverTimestamp(),
   });
 
   nameInput.value = "";
+  locationSelect.value = ""; // reset select to placeholder
 });
 
 /* =========================
@@ -95,10 +99,9 @@ function renderItem(docSnap) {
   const data = docSnap.data();
   const id = docSnap.id;
 
-  // Clone the hidden template
   const clone = template.cloneNode(true);
-  clone.style.display = "flex"; // make it visible
-  clone.id = ""; // remove duplicate ID if any
+  clone.style.display = "flex";
+  clone.id = "";
 
   // Find elements inside clone
   const titleEl = clone.querySelector(".counter-title");
@@ -108,6 +111,16 @@ function renderItem(docSnap) {
 
   // Set initial content
   titleEl.textContent = data.name;
+
+  // Optional: display location
+  let locationEl = clone.querySelector(".counter-location");
+  if (!locationEl) {
+    locationEl = document.createElement("div");
+    locationEl.className = "counter-location";
+    clone.appendChild(locationEl);
+  }
+  locationEl.textContent = `Location: ${data.location}`;
+
   countEl.textContent = data.count;
 
   // Button handlers
@@ -116,9 +129,10 @@ function renderItem(docSnap) {
   decBtn.onclick = () =>
     updateDoc(doc(db, "items", id), { count: increment(-1) });
 
-  // Live updates for count
+  // live updates
   onSnapshot(doc(db, "items", id), (snap) => {
     countEl.textContent = snap.data().count;
+    locationEl.textContent = `Location: ${snap.data().location}`;
   });
 
   container.appendChild(clone);
