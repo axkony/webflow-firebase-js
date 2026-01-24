@@ -101,7 +101,7 @@ function renderItem(docSnap) {
 
   // clone hidden template
   const clone = template.cloneNode(true);
-  clone.style.display = "flex"; // show it
+  clone.style.display = "flex"; // make it visible
   clone.id = ""; // remove duplicate ID
 
   // find elements inside clone
@@ -109,6 +109,7 @@ function renderItem(docSnap) {
   const countEl = clone.querySelector(".counter-value");
   const incBtn = clone.querySelector(".inc");
   const decBtn = clone.querySelector(".dec");
+  const deleteBtn = clone.querySelector(".delete-button"); // NEW
 
   // overwrite placeholder text
   titleEl.textContent = data.name;
@@ -122,16 +123,30 @@ function renderItem(docSnap) {
   }
   locationEl.textContent = `Location: ${data.location}`;
 
-  // button handlers
+  // increment/decrement
   incBtn.onclick = () =>
     updateDoc(doc(db, "items", id), { count: increment(1) });
   decBtn.onclick = () =>
     updateDoc(doc(db, "items", id), { count: increment(-1) });
 
+  // delete item
+  if (deleteBtn) {
+    deleteBtn.onclick = () => {
+      const confirmed = confirm(
+        `Are you sure you want to delete "${data.name}"?`,
+      );
+      if (confirmed) {
+        deleteDoc(doc(db, "items", id));
+      }
+    };
+  }
+
   // live updates for count & location
   onSnapshot(doc(db, "items", id), (snap) => {
-    countEl.textContent = snap.data().count;
-    locationEl.textContent = `Location: ${snap.data().location}`;
+    const itemData = snap.data();
+    if (!itemData) return; // document might have been deleted
+    countEl.textContent = itemData.count;
+    locationEl.textContent = `Location: ${itemData.location}`;
   });
 
   container.appendChild(clone);
