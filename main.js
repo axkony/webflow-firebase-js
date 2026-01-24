@@ -8,6 +8,7 @@ import {
   getDocs,
   onSnapshot,
   updateDoc,
+  deleteDoc,
   increment,
   doc,
   serverTimestamp,
@@ -34,9 +35,9 @@ const db = getFirestore(app);
      ========================= */
 const addBtn = document.getElementById("add-item-btn");
 const nameInput = document.getElementById("item-name-input");
+const locationSelect = document.getElementById("item-location-select");
 const container = document.getElementById("items-container");
 const template = document.querySelector(".item-template");
-const locationSelect = document.getElementById("item-location-select");
 
 if (!addBtn || !nameInput || !container || !template || !locationSelect) {
   console.error("Required elements not found");
@@ -109,7 +110,7 @@ function renderItem(docSnap) {
   const countEl = clone.querySelector(".counter-value");
   const incBtn = clone.querySelector(".inc");
   const decBtn = clone.querySelector(".dec");
-  const deleteBtn = clone.querySelector(".delete-button"); // NEW
+  const deleteBtn = clone.querySelector(".delete-button");
 
   // overwrite placeholder text
   titleEl.textContent = data.name;
