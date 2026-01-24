@@ -63,7 +63,7 @@ addBtn.addEventListener("click", async () => {
   if (!name) return;
 
   if (await nameExists(name)) {
-    alert("Item name must be unique");
+    alert("Bereits inventarisiert unter selbem Namen");
     return;
   }
 
