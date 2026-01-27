@@ -126,9 +126,6 @@ kindSelect.addEventListener("change", () => {
   const kind = kindSelect.value;
   console.log("––– kind:", kind);
 
-  selectL.options.length = 0;
-  selectR.options.length = 0;
-
   selectL.disabled = false;
   selectR.disabled = false;
 
