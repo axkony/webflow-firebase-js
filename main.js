@@ -149,12 +149,14 @@ ortOptions.forEach((o) => {
   locationSelect.appendChild(ortOption);
 });
 
+//andere select verstecken bis wahl getroffen wurde
+
 locationSelect.addEventListener("change", () => {
-  const location = locationSelect.value;
-  if (location != "") {
+  if (locationSelect.value != "") {
     kindSelect.style.display = "none";
+    console.log("kindSelect hidden");
   } else {
-    kindSelect.style.display = "initial";
+    kindSelect.style.visibility = "initial";
   }
 });
 
@@ -163,6 +165,16 @@ kindSelect.options.length = 0;
 artOptions.forEach((o) => {
   let artOption = new Option(o.text, o.value);
   kindSelect.appendChild(artOption);
+});
+
+//untere select verstecken bis wahl getroffen wurde
+kindSelect.addEventListener("change", () => {
+  if (kindSelect.value != "") {
+    kindKindSelect.style.display = "none";
+    console.log("kindKindSelect hidden");
+  } else {
+    kindKindSelect.style.display = "initial";
+  }
 });
 
 kindSelect.addEventListener("change", () => {
