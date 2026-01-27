@@ -186,23 +186,28 @@ kindSelect.addEventListener("change", () => {
 kindkindSelect.options.length = 0;
 kindSelect.addEventListener("change", () => {
   const kind = kindSelect.value;
-  if (kind == Gear) {
-    artAudioOptions.forEach((o) => {
-      let kindKindOption = new Option(o.text, o.value);
-      kindKindSelect.appendChild(artOption);
-    });
-  }
-});
 
-//untere select verstecken bis wahl getroffen wurde
-kindSelect.addEventListener("change", () => {
-  if (kindSelect.value == "") {
+  //hide lower selecta
+  if (kind == "") {
     kindKindSelect.style.visibility = "hidden";
     console.log("kindKindSelect hidden");
   } else {
     kindKindSelect.style.visibility = "visible";
   }
+
+  //fill selecta appropriately
+  if (kind === "Gear") {
+    artAudioOptions.forEach((o) => {
+      let kindKindOption = new Option(o.text, o.value);
+      kindKindSelect.appendChild(kindKindOption);
+    });
+  } else if (kind === "Material") {
+    return;
+  }
 });
+
+//untere select verstecken bis wahl getroffen wurde
+kindSelect.addEventListener("change", () => {});
 
 kindSelect.addEventListener("change", () => {
   const kind = kindSelect.value;
