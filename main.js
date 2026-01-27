@@ -128,24 +128,20 @@ kindSelect.addEventListener("change", () => {
 
   selectL.disabled = false;
   selectR.disabled = false;
+  // alles aus select Löschen
+  selectL.options.length = 0;
+  selectR.options.length = 0;
 
   console.log("selects enabled…");
 
   if (kind === "Kabel") {
     console.log("_______KABEL AUSGEWÄHLT!!!!");
 
-    // alles aus select Löschen
-    while (selectL.options.length > 0) {
-      selectL.remove(0);
-    }
-    while (selectR.options.length > 0) {
-      selectR.remove(0);
-    }
-
     kabelAudioOptions.forEach((o) => {
-      let option = new Option(o.text, o.value);
-      selectL.appendChild(option);
-      selectR.appendChild(option);
+      let optionL = new Option(o.text, o.value);
+      let optionR = new Option(o.text, o.value);
+      selectL.appendChild(optionL);
+      selectR.appendChild(optionR);
     });
   }
 });
