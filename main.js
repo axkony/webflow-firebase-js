@@ -129,6 +129,9 @@ kindSelect.addEventListener("change", () => {
   selectL.options.length = 0;
   selectR.options.length = 0;
 
+  selectL.disabled = false;
+  selectR.disabled = false;
+
   if (kind === "Kabel") {
     console.log("_______KABEL AUSGEWÄHLT!!!!");
 
