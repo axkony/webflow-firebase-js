@@ -129,7 +129,8 @@ addBtn.addEventListener("click", async () => {
   const name = nameInput.value.trim();
   const location = locationSelect.value;
   const kind = kindSelect.value;
-  if (!name || !location || !kind) return;
+
+  console.log(kind);
 
   if (kind == "Kabel") {
     console.log("_______KABEL AUSGEWÄHLT!!!!");
@@ -148,6 +149,8 @@ addBtn.addEventListener("click", async () => {
       selectL.appendChild(option);
     });
   }
+
+  if (!name || !location || !kind) return;
 
   if (await nameExists(name)) {
     alert("Item name must be unique");
