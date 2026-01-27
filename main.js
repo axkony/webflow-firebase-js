@@ -138,18 +138,15 @@ kindSelect.addEventListener("change", () => {
     while (selectL.options.length > 0) {
       selectL.remove(0);
     }
-    console.log("left removed…");
-    while (selectR.options.length > 0) {
+    /* while (selectR.options.length > 0) {
       selectR.remove(0);
     }
-    console.log("right removed…");
+      */
 
     kabelAudioOptions.forEach((o) => {
       let option = new Option(o.text, o.value);
       selectL.appendChild(option);
-      console.log("left appended…");
-      selectR.appendChild(option);
-      console.log("right appended…");
+      // selectR.appendChild(option);
     });
   }
 });
