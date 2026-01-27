@@ -159,7 +159,7 @@ ortOptions.forEach((o) => {
 
 locationSelect.addEventListener("change", () => {
   if (locationSelect.value != "") {
-    kindSelect.style.display = "initial";
+    kindSelect.style.display = "flex";
   } else {
     kindSelect.style.display = "none";
   }
@@ -175,7 +175,7 @@ artOptions.forEach((o) => {
 //untere select verstecken bis wahl getroffen wurde
 kindSelect.addEventListener("change", () => {
   if (kindSelect.value != "") {
-    kindKindSelect.style.display = "initial";
+    kindKindSelect.style.display = "flex";
   } else {
     kindKindSelect.style.display = "none";
   }
@@ -187,10 +187,10 @@ kindSelect.addEventListener("change", () => {
   const kind = kindSelect.value;
 
   //hide lower selecta
-  if (kind == "") {
-    kindKindSelect.style.visibility = "initial";
+  if (kind != "") {
+    kindKindSelect.style.display = "flex";
   } else {
-    kindKindSelect.style.visibility = "none";
+    kindKindSelect.style.display = "none";
   }
 
   //fill selecta appropriately
@@ -206,7 +206,6 @@ kindSelect.addEventListener("change", () => {
 
 kindKindSelect.addEventListener("change", () => {
   const kind = kindKindSelect.value;
-  if (kind !=) {} 
 
   selectL.disabled = false;
   selectR.disabled = false;
