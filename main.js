@@ -177,6 +177,28 @@ kindSelect.addEventListener("change", () => {
   }
 });
 
+// ========================= instantiieren ArtArtauswahl =========================
+kindkindSelect.options.length = 0;
+kindSelect.addEventListener("change", () => {
+  const kind = kindSelect.value;
+  if (kind == Gear) {
+    artAudioOptions.forEach((o) => {
+      let kindKindOption = new Option(o.text, o.value);
+      kindKindSelect.appendChild(artOption);
+    });
+  }
+});
+
+//untere select verstecken bis wahl getroffen wurde
+kindSelect.addEventListener("change", () => {
+  if (kindSelect.value == "") {
+    kindKindSelect.style.display = "none";
+    console.log("kindKindSelect hidden");
+  } else {
+    kindKindSelect.style.display = "initial";
+  }
+});
+
 kindSelect.addEventListener("change", () => {
   const kind = kindSelect.value;
 
