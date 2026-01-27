@@ -149,7 +149,14 @@ ortOptions.forEach((o) => {
   locationSelect.appendChild(ortOption);
 });
 
-locationSelect;
+locationSelect.addEventListener("change", () => {
+  const location = locationSelect.value;
+  if (location != "") {
+    kindSelect.style.display = "none";
+  } else {
+    kindSelect.style.display = "initial";
+  }
+});
 
 // ========================= instantiieren Artauswahl =========================
 kindSelect.options.length = 0;
