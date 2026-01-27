@@ -153,10 +153,10 @@ ortOptions.forEach((o) => {
 
 locationSelect.addEventListener("change", () => {
   if (locationSelect.value == "") {
-    kindSelect.style.display = "none";
+    kindSelect.style.visibility = "hidden";
     console.log("kindSelect hidden");
   } else {
-    kindSelect.style.visibility = "initial";
+    kindSelect.style.visibility = "visible";
   }
 });
 
@@ -170,10 +170,9 @@ artOptions.forEach((o) => {
 //untere select verstecken bis wahl getroffen wurde
 kindSelect.addEventListener("change", () => {
   if (kindSelect.value == "") {
-    kindKindSelect.style.display = "none";
-    console.log("kindKindSelect hidden");
+    kindKindSelect.style.visibility = "hidden";
   } else {
-    kindKindSelect.style.display = "initial";
+    kindKindSelect.style.visibility = "visible";
   }
 });
 
@@ -192,10 +191,10 @@ kindSelect.addEventListener("change", () => {
 //untere select verstecken bis wahl getroffen wurde
 kindSelect.addEventListener("change", () => {
   if (kindSelect.value == "") {
-    kindKindSelect.style.display = "none";
+    kindKindSelect.style.visibility = "hidden";
     console.log("kindKindSelect hidden");
   } else {
-    kindKindSelect.style.display = "initial";
+    kindKindSelect.style.visibility = "visible";
   }
 });
 
