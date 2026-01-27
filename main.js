@@ -39,6 +39,8 @@ const locationSelect = document.getElementById("item-location-select");
 const kindSelect = document.getElementById("item-select-kind");
 const container = document.getElementById("items-container");
 const template = document.querySelector(".item-template");
+const selectL = document.getElementById("Inp-Select-L");
+const selectR = document.getElementById("Inp-Select-R");
 
 if (!addBtn || !nameInput || !container || !template || !locationSelect) {
   console.error("Required elements not found");
@@ -111,11 +113,6 @@ const kabelLängeOptions = [
   { text: "30m", value: "30" },
 ];
 
-kabelAudioOptions.forEach((o) => {
-  let option = new Option(o.text, o.value);
-  selectL.appendChild(option);
-});
-
 /* =========================
      HELPER: CHECK UNIQUE NAME
      ========================= */
@@ -136,6 +133,20 @@ addBtn.addEventListener("click", async () => {
 
   if (kind == "Kabel") {
     console.log("_______KABEL AUSGEWÄHLT!!!!");
+
+    // alles aus select Löschen
+    while (selectL.options.length > 0) {
+      selectL.remove(0);
+    }
+    while (selectL.options.length > 0) {
+      selectL.remove(0);
+    }
+
+    kabelAudioOptions.forEach((o) => {
+      let option = new Option(o.text, o.value);
+      selectL.clear;
+      selectL.appendChild(option);
+    });
   }
 
   if (await nameExists(name)) {
