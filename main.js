@@ -35,7 +35,10 @@ const addBtn = document.getElementById("add-item-btn");
 const nameInput = document.getElementById("item-name-input");
 const locationSelect = document.getElementById("item-location-select");
 const kindSelect = document.getElementById("item-select-kind");
+const kindKindSelect = document.getElementById("item-select-kind-2");
+
 const container = document.getElementById("items-container");
+
 const selectL = document.getElementById("Inp-Select-L");
 const selectR = document.getElementById("Inp-Select-R");
 
@@ -45,10 +48,11 @@ if (!addBtn || !nameInput || !container || !template || !locationSelect) {
   console.error("Required elements not found");
 }
 
-//==================== Art Auswahlmöglichkeiten ====================
+//==================== Auswahlmöglichkeiten ====================
 
+// Ort
 const ortOptions = [
-  { text: "---Ort Wählen---", value: "" },
+  { text: "--- Ort Wählen ---", value: "" },
   { text: "Estrich", value: "Estrich" },
   { text: "Mansarde", value: "Mansarde" },
   { text: "Atelier Winti", value: "Atelier_Winti" },
@@ -56,12 +60,14 @@ const ortOptions = [
   { text: "Sonstwo", value: "Sonstwo" },
 ];
 
+// Art generell
 const artOptions = [
   { text: "--- Art wählen ---", value: "" },
   { text: "Gear", value: "Gear" },
   { text: "Material", value: "Material" },
 ];
 
+// Art Audio Material
 const artAudioOptions = [
   { text: "Audiokabel", value: "Audiokabel" },
   { text: "Stromkabel", value: "Stromkabel" },
@@ -128,14 +134,14 @@ const kabelLängeOptions = [
   { text: "30m", value: "30" },
 ];
 
-/* =========================
-     HELPER: CHECK UNIQUE NAME
-     ========================= */
+// ========================= HELPER: CHECK UNIQUE NAME =========================
 async function nameExists(name) {
   const q = query(itemsCol, where("name", "==", name));
   const snap = await getDocs(q);
   return !snap.empty;
 }
+
+// ========================= instantiieren Ortauswahl =========================
 
 locationSelect.options.length = 0;
 ortOptions.forEach((o) => {
@@ -143,13 +149,17 @@ ortOptions.forEach((o) => {
   locationSelect.appendChild(ortOption);
 });
 
-locationSelect.locationSelect.addEventListener("change", () => {
-  const location = locationSelect.value;
+locationSelect;
+
+// ========================= instantiieren Artauswahl =========================
+kindSelect.options.length = 0;
+artOptions.forEach((o) => {
+  let artOption = new Option(o.text, o.value);
+  kindSelect.appendChild(artOption);
 });
 
 kindSelect.addEventListener("change", () => {
   const kind = kindSelect.value;
-  console.log("––– kind:", kind);
 
   selectL.disabled = false;
   selectR.disabled = false;
