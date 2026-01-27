@@ -58,27 +58,58 @@ const itemsCol = collection(db, "items");
 // Kabel
 
 const kabelAudioOptions = [
-  { text: "Stecker Art…", value: "" },
-  { text: "XLR (m)", value: "1" },
-  { text: "XLR (f)", value: "2" },
-  { text: "TRS 1/4 (m)", value: "3" },
-  { text: "TRS 1/4 (f)", value: "4" },
-  { text: "TRS 3.5mm (m)", value: "5" },
-  { text: "TS 1/4 (m)", value: "6" },
-  { text: "TS 1/4 (f)", value: "7" },
-  { text: "TS 3.5mm (m)", value: "8" },
-  { text: "TS 3.5mm (m)", value: "9" },
-  { text: "Chinch (m)", value: "10" },
+  { text: "--- AUDIO KABEL ---", value: "" },
+  { text: "XLR", value: "XLR_1" },
+  { text: "XLR (low profile)", value: "XLR_2" },
+  { text: "TRS 1/4", value: "TRS_1" },
+  { text: "TRS 3.5mm (patch)", value: "TRS_2" },
+  { text: "TS 1/4", value: "TS_1" },
+  { text: "TS 3.5mm (patch)", value: "TS_2" },
+  { text: "RCA (Chinch)", value: "RCA" },
+  { text: "SpeakON", value: "SpeakON" },
+  { text: "PowerCON", value: "PowerCON" },
+  { text: "--- AUDIO DATA ---", value: "" },
+  { text: "Midi", value: "Midi" },
+  { text: "Toslink (ADAT)", value: "Toslink" },
+  { text: "Timecode", value: "Timecode" },
+  { text: "Madi", value: "Madi" },
+  { text: "--- PEITSCHEN ---", value: "" },
+  { text: "Peitsche 2", value: "Peitsche_2" },
+  { text: "Peitsche 4", value: "Peitsche_4" },
+  { text: "Peitsche 8", value: "Peitsche_8" },
+  { text: "Peitsche Multi", value: "Peitsche_Multi" },
 ];
 
-const selectL = document.getElementById("Inp-Select-L");
-if (!selectL) {
-  console.error("selectL was not found");
-}
+const kabelStromOptions = [
+  { text: "CH mit Erde", value: "CH-3" },
+  { text: "CH ohne Erde", value: "CH-2" },
+  { text: "CH multi 3", value: "CH-mult-3" },
+  { text: "CH multi 4", value: "CH-mult-4" },
+  { text: "CH multi 8", value: "CH-mult-8" },
+  { text: "Schuko", value: "CH-mult-4" },
+];
 
-selectL.addEventListener("click", async () => {
-  console.log("select was clicked!");
-});
+const kabelGenderOptions = [
+  { text: "Gender wählen", value: "" },
+  { text: "Male", value: "1" },
+  { text: "Female", value: "2" },
+];
+
+const kabelLängeOptions = [
+  { text: "Länge Wählen", value: "" },
+  { text: "< 0.25", value: "kurz" },
+  { text: "0.25", value: "0.25" },
+  { text: "0.5", value: "0.5" },
+  { text: "1m", value: "1" },
+  { text: "2m", value: "2" },
+  { text: "3m", value: "3" },
+  { text: "4m", value: "4" },
+  { text: "5m", value: "5" },
+  { text: "10m", value: "10" },
+  { text: "15m", value: "15" },
+  { text: "20m", value: "20" },
+  { text: "30m", value: "30" },
+];
 
 kabelAudioOptions.forEach((o) => {
   let option = new Option(o.text, o.value);
@@ -102,6 +133,10 @@ addBtn.addEventListener("click", async () => {
   const location = locationSelect.value;
   const kind = kindSelect.value;
   if (!name || !location || !kind) return;
+
+  if (kind == "Kabel") {
+    console.log("_______KABEL AUSGEWÄHLT!!!!");
+  }
 
   if (await nameExists(name)) {
     alert("Item name must be unique");
