@@ -15,9 +15,7 @@ import {
   orderBy,
 } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 
-/* =========================
-     FIREBASE CONFIG
-     ========================= */
+// ========================= FIREBASE CONFIG =========================
 const firebaseConfig = {
   apiKey: "AIzaSyA6ALAY6HReTmoH9lpPC1IQhVuk9qDr93U",
   authDomain: "inventarisator-a-m.firebaseapp.com",
@@ -29,35 +27,49 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const itemsCol = collection(db, "items");
 
-/* =========================
-     DOM ELEMENTS
-     ========================= */
+// ========================= Referenzen =========================
+
 const addBtn = document.getElementById("add-item-btn");
 const nameInput = document.getElementById("item-name-input");
 const locationSelect = document.getElementById("item-location-select");
 const kindSelect = document.getElementById("item-select-kind");
 const container = document.getElementById("items-container");
-const template = document.querySelector(".item-template");
 const selectL = document.getElementById("Inp-Select-L");
 const selectR = document.getElementById("Inp-Select-R");
+
+const template = document.querySelector(".item-template");
 
 if (!addBtn || !nameInput || !container || !template || !locationSelect) {
   console.error("Required elements not found");
 }
 
-/* =========================
-     FIRESTORE REFERENCE
-     ========================= */
-const itemsCol = collection(db, "items");
+//==================== Art Auswahlmöglichkeiten ====================
 
-/*
-====================
-    Art Auswahlmöglichkeiten
-====================
-*/
+const ortOptions = [
+  { text: "---Ort Wählen---", value: "" },
+  { text: "Estrich", value: "Estrich" },
+  { text: "Mansarde", value: "Mansarde" },
+  { text: "Atelier Winti", value: "Atelier_Winti" },
+  { text: "Arbeitszimmer", value: "Arbeitszimmer" },
+  { text: "Sonstwo", value: "Sonstwo" },
+];
 
-// Kabel
+const artOptions = [
+  { text: "--- Art wählen ---", value: "" },
+  { text: "Gear", value: "Gear" },
+  { text: "Material", value: "Material" },
+];
+
+const artAudioOptions = [
+  { text: "Audiokabel", value: "Audiokabel" },
+  { text: "Stromkabel", value: "Stromkabel" },
+  { text: "Mikrophon", value: "Mikrophon" },
+  { text: "Synthi", value: "Synthi" },
+];
+
+// AudioKabel
 
 const kabelAudioOptions = [
   { text: "--- AUDIO KABEL ---", value: "" },
@@ -76,9 +88,12 @@ const kabelAudioOptions = [
   { text: "Timecode", value: "Timecode" },
   { text: "Madi", value: "Madi" },
   { text: "--- PEITSCHEN ---", value: "" },
-  { text: "Peitsche 2", value: "Peitsche_2" },
-  { text: "Peitsche 4", value: "Peitsche_4" },
-  { text: "Peitsche 8", value: "Peitsche_8" },
+  { text: "Peitsche 2 XLR", value: "Peitsche_2_XLR" },
+  { text: "Peitsche 2 TRS", value: "Peitsche_2_TRS" },
+  { text: "Peitsche 4 XLR", value: "Peitsche_4_XLR" },
+  { text: "Peitsche 4 TRS", value: "Peitsche_4" },
+  { text: "Peitsche 8 XLR", value: "Peitsche_8_XLR" },
+  { text: "Peitsche 8 TRS", value: "Peitsche_8" },
   { text: "Peitsche Multi", value: "Peitsche_Multi" },
 ];
 
@@ -121,6 +136,16 @@ async function nameExists(name) {
   const snap = await getDocs(q);
   return !snap.empty;
 }
+
+locationSelect.options.length = 0;
+ortOptions.forEach((o) => {
+  let ortOption = new Option(o.text, o.value);
+  locationSelect.appendChild(ortOption);
+});
+
+locationSelect.locationSelect.addEventListener("change", () => {
+  const location = locationSelect.value;
+});
 
 kindSelect.addEventListener("change", () => {
   const kind = kindSelect.value;
