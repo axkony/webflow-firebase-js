@@ -72,6 +72,9 @@ const kabelAudioOptions = [
 ];
 
 const selectL = document.getElementById("Inp-Select-L");
+if (!selectL) {
+  console.error("selectL was not found");
+}
 
 selectL.addEventListener("click", async () => {
   console.log("select was clicked!");
