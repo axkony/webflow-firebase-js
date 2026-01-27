@@ -152,7 +152,7 @@ ortOptions.forEach((o) => {
 //andere select verstecken bis wahl getroffen wurde
 
 locationSelect.addEventListener("change", () => {
-  if (locationSelect.value != "") {
+  if (locationSelect.value == "") {
     kindSelect.style.display = "none";
     console.log("kindSelect hidden");
   } else {
@@ -169,7 +169,7 @@ artOptions.forEach((o) => {
 
 //untere select verstecken bis wahl getroffen wurde
 kindSelect.addEventListener("change", () => {
-  if (kindSelect.value != "") {
+  if (kindSelect.value == "") {
     kindKindSelect.style.display = "none";
     console.log("kindKindSelect hidden");
   } else {
