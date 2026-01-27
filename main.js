@@ -145,6 +145,10 @@ kindSelect.addEventListener("change", () => {
       selectL.appendChild(option);
       selectR.appendChild(option);
     });
+
+    selectL.disabled = false;
+  } else {
+    selectL.disabled = true;
   }
 });
 
