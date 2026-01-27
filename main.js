@@ -36,6 +36,7 @@ const nameInput = document.getElementById("item-name-input");
 const locationSelect = document.getElementById("item-location-select");
 const kindSelect = document.getElementById("item-select-kind");
 const kindKindSelect = document.getElementById("item-select-kind-2");
+const specificSelect = document.getElementById("item-specific-select");
 
 const container = document.getElementById("items-container");
 
@@ -47,6 +48,10 @@ const template = document.querySelector(".item-template");
 if (!addBtn || !nameInput || !container || !template || !locationSelect) {
   console.error("Required elements not found");
 }
+
+kindSelect.style.display = "none";
+kindKindSelect.style.display = "none";
+specificSelect.style.display = "none";
 
 //==================== Auswahlmöglichkeiten ====================
 
@@ -154,10 +159,10 @@ ortOptions.forEach((o) => {
 
 locationSelect.addEventListener("change", () => {
   if (locationSelect.value == "") {
-    kindSelect.style.visibility = "hidden";
+    kindSelect.style.display = "none";
     console.log("kindSelect hidden");
   } else {
-    kindSelect.style.visibility = "visible";
+    kindSelect.style.display = "initial";
   }
 });
 
