@@ -158,11 +158,10 @@ ortOptions.forEach((o) => {
 //andere select verstecken bis wahl getroffen wurde
 
 locationSelect.addEventListener("change", () => {
-  if (locationSelect.value == "") {
-    kindSelect.style.display = "none";
-    console.log("kindSelect hidden");
-  } else {
+  if (locationSelect.value != "") {
     kindSelect.style.display = "initial";
+  } else {
+    kindSelect.style.display = "none";
   }
 });
 
@@ -175,10 +174,10 @@ artOptions.forEach((o) => {
 
 //untere select verstecken bis wahl getroffen wurde
 kindSelect.addEventListener("change", () => {
-  if (kindSelect.value == "") {
-    kindKindSelect.style.visibility = "hidden";
+  if (kindSelect.value != "") {
+    kindKindSelect.style.display = "initial";
   } else {
-    kindKindSelect.style.visibility = "visible";
+    kindKindSelect.style.display = "none";
   }
 });
 
@@ -189,10 +188,9 @@ kindSelect.addEventListener("change", () => {
 
   //hide lower selecta
   if (kind == "") {
-    kindKindSelect.style.visibility = "hidden";
-    console.log("kindKindSelect hidden");
+    kindKindSelect.style.visibility = "initial";
   } else {
-    kindKindSelect.style.visibility = "visible";
+    kindKindSelect.style.visibility = "none";
   }
 
   //fill selecta appropriately
@@ -206,11 +204,9 @@ kindSelect.addEventListener("change", () => {
   }
 });
 
-//untere select verstecken bis wahl getroffen wurde
-kindSelect.addEventListener("change", () => {});
-
-kindSelect.addEventListener("change", () => {
-  const kind = kindSelect.value;
+kindKindSelect.addEventListener("change", () => {
+  const kind = kindKindSelect.value;
+  if (kind !=) {} 
 
   selectL.disabled = false;
   selectR.disabled = false;
@@ -218,11 +214,7 @@ kindSelect.addEventListener("change", () => {
   selectL.options.length = 0;
   selectR.options.length = 0;
 
-  console.log("selects enabled…");
-
   if (kind === "Kabel") {
-    console.log("_______KABEL AUSGEWÄHLT!!!!");
-
     kabelAudioOptions.forEach((o) => {
       let optionL = new Option(o.text, o.value);
       let optionR = new Option(o.text, o.value);
