@@ -145,7 +145,7 @@ kindSelect.addEventListener("change", () => {
     kabelAudioOptions.forEach((o) => {
       let option = new Option(o.text, o.value);
       selectL.appendChild(option);
-      // selectR.appendChild(option);
+      selectR.appendChild(option);
     });
   }
 });
