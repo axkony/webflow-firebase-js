@@ -49,6 +49,39 @@ if (!addBtn || !nameInput || !container || !template || !locationSelect) {
      ========================= */
 const itemsCol = collection(db, "items");
 
+/*
+====================
+    Art Auswahlmöglichkeiten
+====================
+*/
+
+// Kabel
+
+const kabelAudioOptions = [
+  { text: "Stecker Art…", value: "" },
+  { text: "XLR (m)", value: "1" },
+  { text: "XLR (f)", value: "2" },
+  { text: "TRS 1/4 (m)", value: "3" },
+  { text: "TRS 1/4 (f)", value: "4" },
+  { text: "TRS 3.5mm (m)", value: "5" },
+  { text: "TS 1/4 (m)", value: "6" },
+  { text: "TS 1/4 (f)", value: "7" },
+  { text: "TS 3.5mm (m)", value: "8" },
+  { text: "TS 3.5mm (m)", value: "9" },
+  { text: "Chinch (m)", value: "10" },
+];
+
+const selectL = document.getElementById("Inp-Select-L");
+
+selectL.addEventListener("click", async () => {
+  console.log("select was clicked!");
+});
+
+kabelAudioOptions.forEach((o) => {
+  let option = new Option(o.text, o.value);
+  selectL.appendChild(option);
+});
+
 /* =========================
      HELPER: CHECK UNIQUE NAME
      ========================= */
