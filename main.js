@@ -69,6 +69,7 @@ const artOptions = [
 
 // Art Audio Material
 const artAudioOptions = [
+  { text: "--- Gear Art wählen ---", value: "" },
   { text: "Audiokabel", value: "Audiokabel" },
   { text: "Stromkabel", value: "Stromkabel" },
   { text: "Mikrophon", value: "Mikrophon" },
