@@ -138,10 +138,9 @@ kindSelect.addEventListener("change", () => {
     while (selectL.options.length > 0) {
       selectL.remove(0);
     }
-    /* while (selectR.options.length > 0) {
+    while (selectR.options.length > 0) {
       selectR.remove(0);
     }
-      */
 
     kabelAudioOptions.forEach((o) => {
       let option = new Option(o.text, o.value);
