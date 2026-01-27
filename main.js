@@ -122,6 +122,32 @@ async function nameExists(name) {
   return !snap.empty;
 }
 
+kindSelect.addEventListener("change", () => {
+  const kind = kindSelect.value;
+  console.log("––– kind:", kind);
+
+  selectL.options.length = 0;
+  selectR.options.length = 0;
+
+  if (kind === "Kabel") {
+    console.log("_______KABEL AUSGEWÄHLT!!!!");
+
+    // alles aus select Löschen
+    while (selectL.options.length > 0) {
+      selectL.remove(0);
+    }
+    while (selectR.options.length > 0) {
+      selectR.remove(0);
+    }
+
+    kabelAudioOptions.forEach((o) => {
+      let option = new Option(o.text, o.value);
+      selectL.appendChild(option);
+      selectR.appendChild(option);
+    });
+  }
+});
+
 /* =========================
      ADD ITEM BUTTON
      ========================= */
@@ -129,26 +155,6 @@ addBtn.addEventListener("click", async () => {
   const name = nameInput.value.trim();
   const location = locationSelect.value;
   const kind = kindSelect.value;
-
-  console.log(kind);
-
-  if (kind == "Kabel") {
-    console.log("_______KABEL AUSGEWÄHLT!!!!");
-
-    // alles aus select Löschen
-    while (selectL.options.length > 0) {
-      selectL.remove(0);
-    }
-    while (selectL.options.length > 0) {
-      selectL.remove(0);
-    }
-
-    kabelAudioOptions.forEach((o) => {
-      let option = new Option(o.text, o.value);
-      selectL.clear;
-      selectL.appendChild(option);
-    });
-  }
 
   if (!name || !location || !kind) return;
 
