@@ -183,7 +183,7 @@ kindSelect.addEventListener("change", () => {
 });
 
 // ========================= instantiieren ArtArtauswahl =========================
-kindkindSelect.options.length = 0;
+kindKindSelect.options.length = 0;
 kindSelect.addEventListener("change", () => {
   const kind = kindSelect.value;
 
