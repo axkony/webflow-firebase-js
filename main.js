@@ -70,6 +70,20 @@ function fillSelect(selectElement, options) {
     selectElement.appendChild(new Option(o.text, o.value));
   });
 }
+function resetUI(select) {
+  [
+    categorySelect,
+    subCategorySelect,
+    cableEndSelectLeft,
+    cableEndSelectLeftGender,
+    cableEndSelectRight,
+    cableEndSelectRightGender,
+    specificSelectParameter1,
+    specificSelectParameter2,
+  ].forEach(hide);
+}
+
+resetUI();
 
 //==================== Auswahlmöglichkeiten ====================
 
@@ -171,15 +185,6 @@ const gearSubSubcategoryOptions = {
 };
 
 //initial state
-
-hide(categorySelect);
-hide(subCategorySelect);
-hide(specificSelect);
-hide(cableEndSelectLeftGender);
-hide(cableEndSelectRight);
-hide(cableEndSelectRightGender);
-hide(specificSelectParameter1);
-hide(specificSelectParameter2);
 
 //initial fill location
 fillSelect(locationSelect, locationOptions);
@@ -286,6 +291,7 @@ subCategorySelect.addEventListener("change", () => {
         gearSubSubcategoryOptions.parameters.kabelLängeOptions,
       );
 
+      show(cableEndSelectLeft);
       show(cableEndSelectLeftGender);
       show(cableEndSelectRight);
       show(cableEndSelectRightGender);
@@ -294,25 +300,6 @@ subCategorySelect.addEventListener("change", () => {
 
     case "Mikrophon":
       break;
-  }
-});
-
-subCategorySelect.addEventListener("change", () => {
-  const kind = subCategorySelect.value;
-
-  cableEndSelectLeft.disabled = false;
-  cableEndSelectRight.disabled = false;
-  // alles aus select Löschen
-  cableEndSelectLeft.options.length = 0;
-  cableEndSelectRight.options.length = 0;
-
-  if (kind === "Kabel") {
-    kabelAudioOptions.forEach((o) => {
-      let optionL = new Option(o.text, o.value);
-      let optionR = new Option(o.text, o.value);
-      cableEndSelectLeft.appendChild(optionL);
-      cableEndSelectRight.appendChild(optionR);
-    });
   }
 });
 
