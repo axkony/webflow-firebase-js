@@ -181,6 +181,7 @@ hide(cableEndSelectRightGender);
 hide(specificSelectParameter1);
 hide(specificSelectParameter2);
 
+//initial fill location
 fillSelect(locationSelect, locationOptions);
 
 // LOCATION ---> CATEGORY ENABLE & FILL
@@ -234,18 +235,20 @@ subCategorySelect.addEventListener("change", () => {
 
   switch (subCategory) {
     case "Audiokabel":
+      show(cableEndSelectLeft);
+      show(cableEndSelectLeftGender);
+      show(cableEndSelectRight);
+      show(cableEndSelectRightGender);
+      show(specificSelectParameter1);
+
       fillSelect(
         cableEndSelectLeft,
         gearSubSubcategoryOptions.options.audiokabel,
       );
-      console.log(gearSubSubcategoryOptions.options.audiokabel);
-      console.log(gearSubSubcategoryOptions.parameters.kabelLängeOptions);
-
       fillSelect(
         cableEndSelectRight,
         gearSubSubcategoryOptions.options.audiokabel,
       );
-
       fillSelect(
         cableEndSelectLeftGender,
         gearSubSubcategoryOptions.parameters.steckerGenderOptions,
@@ -258,12 +261,6 @@ subCategorySelect.addEventListener("change", () => {
         specificSelectParameter1,
         gearSubSubcategoryOptions.parameters.kabelLängeOptions,
       );
-
-      show(cableEndSelectLeftGender);
-      show(cableEndSelectRight);
-      show(cableEndSelectRightGender);
-      show(specificSelectParameter1);
-
       break;
 
     case "Stromkabel":
