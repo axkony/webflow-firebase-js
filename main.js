@@ -239,6 +239,8 @@ subCategorySelect.addEventListener("change", () => {
         gearSubSubcategoryOptions.options.audiokabel,
       );
       console.log(gearSubSubcategoryOptions.options.audiokabel);
+      console.log(gearSubSubcategoryOptions.parameters.kabelLängeOptions);
+
       fillSelect(
         cableEndSelectRight,
         gearSubSubcategoryOptions.options.audiokabel,
