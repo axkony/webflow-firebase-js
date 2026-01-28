@@ -153,7 +153,7 @@ const gearSubSubcategoryOptions = {
 
     // Kabel Länge
     kabelLängeOptions: [
-      { text: "Länge Wählen", value: "" },
+      { text: "--- Länge Wählen ---", value: "" },
       { text: "< 0.25", value: "kurz" },
       { text: "0.25", value: "0.25" },
       { text: "0.5", value: "0.5" },
