@@ -31,32 +31,50 @@ const itemsCol = collection(db, "items");
 
 // ========================= Referenzen =========================
 
-const addBtn = document.getElementById("add-item-btn");
-const nameInput = document.getElementById("item-name-input");
+const addItemButton = document.getElementById("add-item-btn");
+const itemNameInput = document.getElementById("item-name-input");
 const locationSelect = document.getElementById("item-location-select");
-const kindSelect = document.getElementById("item-select-kind");
-const kindKindSelect = document.getElementById("item-select-kind-2");
+const categorySelect = document.getElementById("item-select-kind");
+const subCategorySelect = document.getElementById("item-select-kind-2");
+
 const specificSelect = document.getElementById("item-specific-select");
+const cableEndSelectLeft = document.getElementById("Inp-Select-L");
+const cableEndSelectRight = document.getElementById("Inp-Select-R");
+const cableEndSelectLeftGender = document.getElementById("Inp-Select-L-Gender");
+const cableEndSelectRightGender = document.getElementById(
+  "Inp-Select-R-Gender",
+);
+const specificSelectParameter1 = document.getElementById("select-parameter-1");
+const specificSelectParameter2 = document.getElementById("select-parameter-2");
 
-const container = document.getElementById("items-container");
+const itemsContainer = document.getElementById("items-container");
+const itemsTemplate = document.querySelector(".item-template");
 
-const selectL = document.getElementById("Inp-Select-L");
-const selectR = document.getElementById("Inp-Select-R");
+//helpers
 
-const template = document.querySelector(".item-template");
-
-if (!addBtn || !nameInput || !container || !template || !locationSelect) {
-  console.error("Required elements not found");
+function show(element) {
+  element.style.display = "block";
 }
 
-kindSelect.style.display = "none";
-kindKindSelect.style.display = "none";
-specificSelect.style.display = "none";
+function hide(element) {
+  element.style.display = "none";
+}
+
+function clearSelect(selectElement) {
+  selectElement.options.length = 0;
+}
+
+function fillSelect(selectElement, options) {
+  clearSelect(selectElement);
+  options.forEach((o) => {
+    selectElement.appendChild(new Option(o.text, o.value));
+  });
+}
 
 //==================== Auswahlmöglichkeiten ====================
 
 // Ort
-const ortOptions = [
+const locationOptions = [
   { text: "--- Ort Wählen ---", value: "" },
   { text: "Estrich", value: "Estrich" },
   { text: "Mansarde", value: "Mansarde" },
@@ -66,14 +84,14 @@ const ortOptions = [
 ];
 
 // Art generell
-const artOptions = [
+const categoryOptions = [
   { text: "--- Art wählen ---", value: "" },
   { text: "Gear", value: "Gear" },
   { text: "Material", value: "Material" },
 ];
 
 // Art Audio Material
-const artAudioOptions = [
+const gearSubcategoryOptions = [
   { text: "--- Gear Art wählen ---", value: "" },
   { text: "Audiokabel", value: "Audiokabel" },
   { text: "Stromkabel", value: "Stromkabel" },
@@ -83,62 +101,219 @@ const artAudioOptions = [
 
 // AudioKabel
 
-const kabelAudioOptions = [
-  { text: "--- AUDIO KABEL ---", value: "" },
-  { text: "XLR", value: "XLR_1" },
-  { text: "XLR (low profile)", value: "XLR_2" },
-  { text: "TRS 1/4", value: "TRS_1" },
-  { text: "TRS 3.5mm (patch)", value: "TRS_2" },
-  { text: "TS 1/4", value: "TS_1" },
-  { text: "TS 3.5mm (patch)", value: "TS_2" },
-  { text: "RCA (Chinch)", value: "RCA" },
-  { text: "SpeakON", value: "SpeakON" },
-  { text: "PowerCON", value: "PowerCON" },
-  { text: "--- AUDIO DATA ---", value: "" },
-  { text: "Midi", value: "Midi" },
-  { text: "Toslink (ADAT)", value: "Toslink" },
-  { text: "Timecode", value: "Timecode" },
-  { text: "Madi", value: "Madi" },
-  { text: "--- PEITSCHEN ---", value: "" },
-  { text: "Peitsche 2 XLR", value: "Peitsche_2_XLR" },
-  { text: "Peitsche 2 TRS", value: "Peitsche_2_TRS" },
-  { text: "Peitsche 4 XLR", value: "Peitsche_4_XLR" },
-  { text: "Peitsche 4 TRS", value: "Peitsche_4" },
-  { text: "Peitsche 8 XLR", value: "Peitsche_8_XLR" },
-  { text: "Peitsche 8 TRS", value: "Peitsche_8" },
-  { text: "Peitsche Multi", value: "Peitsche_Multi" },
-];
+const gearSubSubcategoryOptions = {
+  options: {
+    //AudioKabel
+    audiokabel: [
+      { text: "--- AUDIO KABEL ---", value: "" },
+      { text: "XLR", value: "XLR_1" },
+      { text: "XLR (low profile)", value: "XLR_2" },
+      { text: "TRS 1/4", value: "TRS_1" },
+      { text: "TRS 3.5mm (patch)", value: "TRS_2" },
+      { text: "TS 1/4", value: "TS_1" },
+      { text: "TS 3.5mm (patch)", value: "TS_2" },
+      { text: "RCA (Chinch)", value: "RCA" },
+      { text: "SpeakON", value: "SpeakON" },
+      { text: "PowerCON", value: "PowerCON" },
+      { text: "--- AUDIO DATA ---", value: "" },
+      { text: "Midi", value: "Midi" },
+      { text: "Toslink (ADAT)", value: "Toslink" },
+      { text: "Timecode", value: "Timecode" },
+      { text: "Madi", value: "Madi" },
+      { text: "--- PEITSCHEN ---", value: "" },
+      { text: "Peitsche 2 XLR", value: "Peitsche_2_XLR" },
+      { text: "Peitsche 2 TRS", value: "Peitsche_2_TRS" },
+      { text: "Peitsche 4 XLR", value: "Peitsche_4_XLR" },
+      { text: "Peitsche 4 TRS", value: "Peitsche_4" },
+      { text: "Peitsche 8 XLR", value: "Peitsche_8_XLR" },
+      { text: "Peitsche 8 TRS", value: "Peitsche_8" },
+      { text: "Peitsche Multi", value: "Peitsche_Multi" },
+    ],
 
-const kabelStromOptions = [
-  { text: "CH mit Erde", value: "CH-3" },
-  { text: "CH ohne Erde", value: "CH-2" },
-  { text: "CH multi 3", value: "CH-mult-3" },
-  { text: "CH multi 4", value: "CH-mult-4" },
-  { text: "CH multi 8", value: "CH-mult-8" },
-  { text: "Schuko", value: "CH-mult-4" },
-];
+    //StromKabel
 
-const kabelGenderOptions = [
-  { text: "Gender wählen", value: "" },
-  { text: "Male", value: "1" },
-  { text: "Female", value: "2" },
-];
+    stromkabel: [
+      { text: "CH mit Erde", value: "CH-3" },
+      { text: "CH ohne Erde", value: "CH-2" },
+      { text: "CH multi 3", value: "CH-mult-3" },
+      { text: "CH multi 4", value: "CH-mult-4" },
+      { text: "CH multi 8", value: "CH-mult-8" },
+      { text: "Schuko", value: "CH-mult-4" },
+    ],
+  },
 
-const kabelLängeOptions = [
-  { text: "Länge Wählen", value: "" },
-  { text: "< 0.25", value: "kurz" },
-  { text: "0.25", value: "0.25" },
-  { text: "0.5", value: "0.5" },
-  { text: "1m", value: "1" },
-  { text: "2m", value: "2" },
-  { text: "3m", value: "3" },
-  { text: "4m", value: "4" },
-  { text: "5m", value: "5" },
-  { text: "10m", value: "10" },
-  { text: "15m", value: "15" },
-  { text: "20m", value: "20" },
-  { text: "30m", value: "30" },
-];
+  parameters: {
+    // Stecker Gender
+    steckerGenderOptions: [
+      { text: "Gender wählen", value: "" },
+      { text: "Male", value: "1" },
+      { text: "Female", value: "2" },
+    ],
+
+    // Kabel Länge
+    kabelLängeOptions: [
+      { text: "Länge Wählen", value: "" },
+      { text: "< 0.25", value: "kurz" },
+      { text: "0.25", value: "0.25" },
+      { text: "0.5", value: "0.5" },
+      { text: "1m", value: "1" },
+      { text: "2m", value: "2" },
+      { text: "3m", value: "3" },
+      { text: "4m", value: "4" },
+      { text: "5m", value: "5" },
+      { text: "10m", value: "10" },
+      { text: "15m", value: "15" },
+      { text: "20m", value: "20" },
+      { text: "30m", value: "30" },
+    ],
+  },
+};
+
+//initial state
+
+hide(categorySelect);
+hide(subCategorySelect);
+hide(specificSelect);
+hide(cableEndSelectLeftGender);
+hide(cableEndSelectRight);
+hide(cableEndSelectRightGender);
+hide(specificSelectParameter1);
+hide(specificSelectParameter2);
+
+fillSelect(locationSelect, locationOptions);
+
+// LOCATION ---> CATEGORY ENABLE & FILL
+
+locationSelect.addEventListener("change", () => {
+  //hide lower selectors if no location
+  if (!locationSelect.value) {
+    hide(categorySelect);
+    hide(subCategorySelect);
+    hide(specificSelect);
+    return;
+  }
+
+  fillSelect(categorySelect, categoryOptions);
+  show(categorySelect);
+});
+
+// CATEGORY ---> SUBCATEGORY ENABLE & FILL
+categorySelect.addEventListener("change", () => {
+  const category = categorySelect.value;
+
+  hide(subCategorySelect);
+  hide(specificSelect);
+
+  if (!category) return;
+  show(subCategorySelect);
+
+  switch (category) {
+    case "Gear":
+      fillSelect(subCategorySelect, gearSubcategoryOptions);
+      break;
+
+    case "Material":
+      fillSelect(subCategorySelect, materialSubcategoryOptions);
+      break;
+  }
+});
+
+subCategorySelect.addEventListener("change", () => {
+  const subCategory = subCategorySelect.value;
+
+  hide(specificSelect);
+  hide(cableEndSelectLeftGender);
+  hide(cableEndSelectRight);
+  hide(cableEndSelectRightGender);
+  hide(specificSelectParameter1);
+  hide(specificSelectParameter2);
+
+  if (!subCategory) return;
+  show(specificSelect);
+
+  switch (subCategory) {
+    case "Audiokabel":
+      fillSelect(
+        cableEndSelectLeft,
+        gearSubSubcategoryOptions.options.audiokabel,
+      );
+      fillSelect(
+        cableEndSelectRight,
+        gearSubSubcategoryOptions.options.audiokabel,
+      );
+
+      fillSelect(
+        cableEndSelectLeftGender,
+        gearSubSubcategoryOptions.parameters.steckerGenderOptions,
+      );
+      fillSelect(
+        cableEndSelectRightGender,
+        gearSubSubcategoryOptions.parameters.steckerGenderOptions,
+      );
+      fillSelect(
+        specificSelectParameter1,
+        gearSubSubcategoryOptions.parameters.kabelLängeOptions,
+      );
+
+      show(cableEndSelectLeftGender);
+      show(cableEndSelectRight);
+      show(cableEndSelectRightGender);
+      show(specificSelectParameter1);
+
+      break;
+
+    case "Stromkabel":
+      fillSelect(
+        cableEndSelectLeft,
+        gearSubSubcategoryOptions.options.stromkabel,
+      );
+      fillSelect(
+        cableEndSelectRight,
+        gearSubSubcategoryOptions.options.stromkabel,
+      );
+
+      fillSelect(
+        cableEndSelectLeftGender,
+        gearSubSubcategoryOptions.parameters.steckerGenderOptions,
+      );
+      fillSelect(
+        cableEndSelectRightGender,
+        gearSubSubcategoryOptions.parameters.steckerGenderOptions,
+      );
+      fillSelect(
+        specificSelectParameter1,
+        gearSubSubcategoryOptions.parameters.kabelLängeOptions,
+      );
+
+      show(cableEndSelectLeftGender);
+      show(cableEndSelectRight);
+      show(cableEndSelectRightGender);
+      show(specificSelectParameter1);
+      break;
+
+    case "Mikrophon":
+      break;
+  }
+});
+
+subCategorySelect.addEventListener("change", () => {
+  const kind = subCategorySelect.value;
+
+  cableEndSelectLeft.disabled = false;
+  cableEndSelectRight.disabled = false;
+  // alles aus select Löschen
+  cableEndSelectLeft.options.length = 0;
+  cableEndSelectRight.options.length = 0;
+
+  if (kind === "Kabel") {
+    kabelAudioOptions.forEach((o) => {
+      let optionL = new Option(o.text, o.value);
+      let optionR = new Option(o.text, o.value);
+      cableEndSelectLeft.appendChild(optionL);
+      cableEndSelectRight.appendChild(optionR);
+    });
+  }
+});
 
 // ========================= HELPER: CHECK UNIQUE NAME =========================
 async function nameExists(name) {
@@ -147,89 +322,13 @@ async function nameExists(name) {
   return !snap.empty;
 }
 
-// ========================= instantiieren Ortauswahl =========================
-
-locationSelect.options.length = 0;
-ortOptions.forEach((o) => {
-  let ortOption = new Option(o.text, o.value);
-  locationSelect.appendChild(ortOption);
-});
-
-//andere select verstecken bis wahl getroffen wurde
-
-locationSelect.addEventListener("change", () => {
-  if (locationSelect.value != "") {
-    kindSelect.style.display = "flex";
-  } else {
-    kindSelect.style.display = "none";
-  }
-});
-
-// ========================= instantiieren Artauswahl =========================
-kindSelect.options.length = 0;
-artOptions.forEach((o) => {
-  let artOption = new Option(o.text, o.value);
-  kindSelect.appendChild(artOption);
-});
-
-//untere select verstecken bis wahl getroffen wurde
-kindSelect.addEventListener("change", () => {
-  if (kindSelect.value != "") {
-    kindKindSelect.style.display = "flex";
-  } else {
-    kindKindSelect.style.display = "none";
-  }
-});
-
-// ========================= instantiieren ArtArtauswahl =========================
-kindKindSelect.options.length = 0;
-kindSelect.addEventListener("change", () => {
-  const kind = kindSelect.value;
-
-  //hide lower selecta
-  if (kind != "") {
-    kindKindSelect.style.display = "flex";
-  } else {
-    kindKindSelect.style.display = "none";
-  }
-
-  //fill selecta appropriately
-  if (kind === "Gear") {
-    artAudioOptions.forEach((o) => {
-      let kindKindOption = new Option(o.text, o.value);
-      kindKindSelect.appendChild(kindKindOption);
-    });
-  } else if (kind === "Material") {
-    return;
-  }
-});
-
-kindKindSelect.addEventListener("change", () => {
-  const kind = kindKindSelect.value;
-
-  selectL.disabled = false;
-  selectR.disabled = false;
-  // alles aus select Löschen
-  selectL.options.length = 0;
-  selectR.options.length = 0;
-
-  if (kind === "Kabel") {
-    kabelAudioOptions.forEach((o) => {
-      let optionL = new Option(o.text, o.value);
-      let optionR = new Option(o.text, o.value);
-      selectL.appendChild(optionL);
-      selectR.appendChild(optionR);
-    });
-  }
-});
-
 /* =========================
-     ADD ITEM BUTTON
-     ========================= */
-addBtn.addEventListener("click", async () => {
-  const name = nameInput.value.trim();
+ADD ITEM BUTTON
+========================= */
+addItemButton.addEventListener("click", async () => {
+  const name = itemNameInput.value.trim();
   const location = locationSelect.value;
-  const kind = kindSelect.value;
+  const kind = categorySelect.value;
 
   if (!name || !location || !kind) return;
 
@@ -246,7 +345,7 @@ addBtn.addEventListener("click", async () => {
     createdAt: serverTimestamp(),
   });
 
-  nameInput.value = "";
+  itemNameInput.value = "";
   locationSelect.value = ""; // reset select to placeholder
 });
 
@@ -256,21 +355,21 @@ addBtn.addEventListener("click", async () => {
 const q = query(itemsCol, orderBy("createdAt"));
 
 onSnapshot(q, (snapshot) => {
-  container.innerHTML = ""; // clear old items
+  itemsContainer.innerHTML = ""; // clear old items
   snapshot.forEach((docSnap) => {
     renderItem(docSnap);
   });
 });
 
 /* =========================
-     RENDER ITEM FUNCTION (CLONE TEMPLATE)
+     RENDER ITEM FUNCTION (CLONE itemsTemplate)
      ========================= */
 function renderItem(docSnap) {
   const data = docSnap.data();
   const id = docSnap.id;
 
-  // clone hidden template
-  const clone = template.cloneNode(true);
+  // clone hidden itemsTemplate
+  const clone = itemsTemplate.cloneNode(true);
   clone.style.display = "flex"; // make it visible
   clone.id = ""; // remove duplicate ID
 
@@ -319,5 +418,5 @@ function renderItem(docSnap) {
     locationEl.textContent = `Location: ${itemData.location}`;
   });
 
-  container.appendChild(clone);
+  itemsContainer.appendChild(clone);
 }
