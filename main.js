@@ -105,7 +105,7 @@ const gearSubSubcategoryOptions = {
   options: {
     //AudioKabel
     audiokabel: [
-      { text: "--- AUDIO KABEL ---", value: "" },
+      { text: "--- AUDIO STECKER ---", value: "" },
       { text: "XLR", value: "XLR_1" },
       { text: "XLR (low profile)", value: "XLR_2" },
       { text: "TRS 1/4", value: "TRS_1" },
@@ -133,6 +133,7 @@ const gearSubSubcategoryOptions = {
     //StromKabel
 
     stromkabel: [
+      { text: "--- STROM STECKER ---", value: "" },
       { text: "CH mit Erde", value: "CH-3" },
       { text: "CH ohne Erde", value: "CH-2" },
       { text: "CH multi 3", value: "CH-mult-3" },
@@ -145,7 +146,7 @@ const gearSubSubcategoryOptions = {
   parameters: {
     // Stecker Gender
     steckerGenderOptions: [
-      { text: "Gender wählen", value: "" },
+      { text: "--- Gender wählen ---", value: "" },
       { text: "Male", value: "1" },
       { text: "Female", value: "2" },
     ],
@@ -237,6 +238,7 @@ subCategorySelect.addEventListener("change", () => {
         cableEndSelectLeft,
         gearSubSubcategoryOptions.options.audiokabel,
       );
+      console.log(gearSubSubcategoryOptions.options.audiokabel);
       fillSelect(
         cableEndSelectRight,
         gearSubSubcategoryOptions.options.audiokabel,
