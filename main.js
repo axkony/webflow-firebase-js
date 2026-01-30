@@ -78,11 +78,11 @@ function resetUI(select) {
     cableEndSelectLeftGender,
     cableEndSelectRight,
     cableEndSelectRightGender,
+    specificSelect,
     specificSelectParameter1,
     specificSelectParameter2,
   ].forEach(hide);
 }
-
 resetUI();
 
 //==================== Auswahlmöglichkeiten ====================
