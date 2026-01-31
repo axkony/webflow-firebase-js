@@ -57,8 +57,12 @@ const cableEndSelectLeftGender = document.getElementById("Inp-Select-L-Gender");
 const cableEndSelectRightGender = document.getElementById(
   "Inp-Select-R-Gender",
 );
-const specificSelectParameter1 = document.getElementById("inp-select-parameter-1");
-const specificSelectParameter2 = document.getElementById("inp-select-parameter-2");
+const specificSelectParameter1 = document.getElementById(
+  "inp-select-parameter-1",
+);
+const specificSelectParameter2 = document.getElementById(
+  "inp-select-parameter-2",
+);
 
 const itemsContainer = document.getElementById("items-container");
 const itemsTemplate = document.querySelector(".item-template");
@@ -323,7 +327,7 @@ function renderItem(docSnap) {
   const locationEl = clone.querySelector(".card-info-text.item-location");
   // const incBtn = clone.querySelector(".card-info-text");
   // const decBtn = clone.querySelector(".card-info-text");
-  const deleteBtn = clone.querySelector(".card-info-text");
+  // const deleteBtn = clone.querySelector(".card-info-text");
 
   // overwrite placeholder text
   titleEl.textContent = data.name;
@@ -365,5 +369,3 @@ function renderItem(docSnap) {
 
   itemsContainer.appendChild(clone);
 }
-
-*/
