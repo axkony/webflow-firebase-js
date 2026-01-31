@@ -202,6 +202,7 @@ locationSelect.addEventListener("change", () => {
 
   fillSelect(categorySelect, categoryOptions);
   show(categorySelect);
+  runQuery();
 });
 
 // CATEGORY ---> SUBCATEGORY ENABLE & FILL
