@@ -44,11 +44,11 @@ const itemsCol = collection(db, "items");
 
 // ========================= Referenzen =========================
 
-const addItemButton = document.getElementById("add-item-btn");
-const itemNameInput = document.getElementById("item-name-input");
-const locationSelect = document.getElementById("item-location-select");
-const categorySelect = document.getElementById("item-select-kind");
-const subCategorySelect = document.getElementById("item-select-kind-2");
+const addItemButton = document.getElementById("inp-add-item-btn");
+const itemNameInput = document.getElementById("inp-item-name");
+const locationSelect = document.getElementById("inp-item-location");
+const categorySelect = document.getElementById("inp-item-category");
+const subCategorySelect = document.getElementById("inp-item-subcategory");
 
 const specificSelect = document.getElementById("item-specific-select");
 const cableEndSelectLeft = document.getElementById("Inp-Select-L");
@@ -57,8 +57,8 @@ const cableEndSelectLeftGender = document.getElementById("Inp-Select-L-Gender");
 const cableEndSelectRightGender = document.getElementById(
   "Inp-Select-R-Gender",
 );
-const specificSelectParameter1 = document.getElementById("select-parameter-1");
-const specificSelectParameter2 = document.getElementById("select-parameter-2");
+const specificSelectParameter1 = document.getElementById("inp-select-parameter-1");
+const specificSelectParameter2 = document.getElementById("inp-select-parameter-2");
 
 const itemsContainer = document.getElementById("items-container");
 const itemsTemplate = document.querySelector(".item-template");
@@ -270,6 +270,7 @@ async function nameExists(name) {
   const snap = await getDocs(q);
   return !snap.empty;
 }
+*/
 
 // ========================= ADD ITEM BUTTON=========================
 addItemButton.addEventListener("click", async () => {
@@ -317,17 +318,18 @@ function renderItem(docSnap) {
   clone.id = ""; // remove duplicate ID
 
   // find elements inside clone
-  const titleEl = clone.querySelector(".counter-title");
-  const countEl = clone.querySelector(".counter-value");
-  const incBtn = clone.querySelector(".inc");
-  const decBtn = clone.querySelector(".dec");
-  const deleteBtn = clone.querySelector(".delete-button");
+  const titleEl = clone.querySelector(".card-info-text.item-name");
+  const countEl = clone.querySelector(".card-info-text.item-amount");
+  const locationEl = clone.querySelector(".card-info-text.item-location");
+  // const incBtn = clone.querySelector(".card-info-text");
+  // const decBtn = clone.querySelector(".card-info-text");
+  const deleteBtn = clone.querySelector(".card-info-text");
 
   // overwrite placeholder text
   titleEl.textContent = data.name;
   countEl.textContent = data.count;
 
-  let locationEl = clone.querySelector(".counter-location");
+  let location = clone.querySelector(".counter-location");
   if (!locationEl) {
     locationEl = document.createElement("div");
     locationEl.className = "counter-location";
