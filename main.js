@@ -303,6 +303,52 @@ subCategorySelect.addEventListener("change", () => {
   }
 });
 
+async function runQuery() {
+  let q = query(collection(db, "items"));
+
+  if (locationSelect.value) {
+    q = query(q, where("location", "==", locationSelect.value));
+  }
+  if (categorySelect.value) {
+    q = query(q, where("category", "==", categorySelect.value));
+  }
+  if (subCategorySelect.value) {
+    q = query(q, where("subCategory", "==", subCategorySelect.value));
+  }
+  if (cableEndSelectLeft.value) {
+    q = query(q, where("cableEndLeft", "==", cableEndSelectLeft.value));
+  }
+  if (cableEndSelectRight.value) {
+    q = query(q, where("cableEndRight", "==", cableEndSelectRight.value));
+  }
+  if (cableEndSelectRightGender.value) {
+    q = query(
+      q,
+      where("cableEndRightGender", "==", cableEndSelectRightGender.value),
+    );
+  }
+  if (cableEndSelectLeftGender.value) {
+    q = query(
+      q,
+      where("cableEndLeftGender", "==", cableEndSelectLeftGender.value),
+    );
+  }
+  const snapshot = await getDocs(q);
+  renderResults(snapshot.docs);
+}
+
+function renderResults(docs) {
+  itemsContainer.innerHTML = "";
+  if (docs.length === 0) {
+    return;
+  }
+  docs.forEach((doc) => {
+    const data = doc.data();
+    console.log(data);
+  });
+}
+
+/*
 // ========================= HELPER: CHECK UNIQUE NAME =========================
 async function nameExists(name) {
   const q = query(itemsCol, where("name", "==", name));
@@ -310,9 +356,7 @@ async function nameExists(name) {
   return !snap.empty;
 }
 
-/* =========================
-ADD ITEM BUTTON
-========================= */
+// ========================= ADD ITEM BUTTON=========================
 addItemButton.addEventListener("click", async () => {
   const name = itemNameInput.value.trim();
   const location = locationSelect.value;
@@ -337,9 +381,7 @@ addItemButton.addEventListener("click", async () => {
   locationSelect.value = ""; // reset select to placeholder
 });
 
-/* =========================
-     LISTEN FOR CHANGES & RENDER
-     ========================= */
+// ========================= LISTEN FOR CHANGES & RENDER =========================
 const q = query(itemsCol, orderBy("createdAt"));
 
 onSnapshot(q, (snapshot) => {
@@ -349,9 +391,7 @@ onSnapshot(q, (snapshot) => {
   });
 });
 
-/* =========================
-     RENDER ITEM FUNCTION (CLONE itemsTemplate)
-     ========================= */
+// ========================= RENDER ITEM FUNCTION (CLONE itemsTemplate) =========================
 function renderItem(docSnap) {
   const data = docSnap.data();
   const id = docSnap.id;
@@ -408,3 +448,5 @@ function renderItem(docSnap) {
 
   itemsContainer.appendChild(clone);
 }
+
+*/
