@@ -309,6 +309,7 @@ async function runQuery() {
 
   if (locationSelect.value) {
     q = query(q, where("location", "==", locationSelect.value));
+    console.log(locationSelect.value);
   }
   if (categorySelect.value) {
     q = query(q, where("category", "==", categorySelect.value));
