@@ -397,8 +397,14 @@ function renderItem(docSnap) {
   onSnapshot(doc(db, "items", id), (snap) => {
     const itemData = snap.data();
     if (!itemData) return; // document might have been deleted
-    amountEl.textContent = itemData.amount;
-    locationEl.textContent = `Location: ${itemData.location}`;
+    amountEl.textContent = `Anzahl: ${itemData.amount}`;
+    locationEl.textContent = `Ort: ${itemData.location}`;
+    categoryEl.textContent = `Art: ${itemData.category}`;
+    locationEl.textContent = `Art2: ${itemData.subCategory}`;
+    if (itemData.subcategory == "Audiokabel") {
+      parameters1El.textcontent = `Stecker Links: ${itemData.parameter1}`;
+      parameters2El.textcontent = `Stecker Rechts: ${itemData.parameter2}`;
+    }
   });
 
   itemsContainer.appendChild(clone);
