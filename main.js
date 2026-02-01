@@ -293,15 +293,17 @@ addItemButton.addEventListener("click", async () => {
     name = itemNameInput.value.trim();
   } else {
     name = category.concat(" ", subCategory).concat(" ");
+    console.log(category.concat(" ", subCategory).concat(" "));
   }
 
+  /*
   if (!name || !location || !category || !subCategory) return;
 
+  
   if (await nameExists(name)) {
     alert("Es gibt schon was mit diesem Namen");
-    return;
   }
-
+  */
   await addDoc(itemsCol, {
     name,
     amount,
