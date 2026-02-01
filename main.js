@@ -267,33 +267,50 @@ function renderResults(docs) {
   });
 }
 
-/*
 // ========================= HELPER: CHECK UNIQUE NAME =========================
 async function nameExists(name) {
   const q = query(itemsCol, where("name", "==", name));
   const snap = await getDocs(q);
   return !snap.empty;
 }
-*/
 
 // ========================= ADD ITEM BUTTON=========================
 addItemButton.addEventListener("click", async () => {
-  const name = itemNameInput.value.trim();
+  const name = "itemname";
   const location = locationSelect.value;
-  const kind = categorySelect.value;
+  const category = categorySelect.value;
+  const subCategory = subCategorySelect.value;
+  const cableEndLeft = cableEndSelectLeft.value;
+  const cableEndLeftGender = cableEndSelectLeftGender.value;
+  const cableEndRight = cableEndSelectRight.value;
+  const cableEndRightGender = cableEndSelectRightGender.value;
+  const parameter1 = specificSelectParameter1.value;
+  const parameter2 = specificSelectParameter2.value;
 
-  if (!name || !location || !kind) return;
+  if (itemNameInput.value) {
+    name = itemNameInput.value.trim();
+  } else {
+    name = category.concat(" ", subCategory).concat(" ");
+  }
+
+  if (!name || !location || !category || !subCategory) return;
 
   if (await nameExists(name)) {
-    alert("Item name must be unique");
+    alert("Es gibt schon was mit diesem Namen");
     return;
   }
 
   await addDoc(itemsCol, {
     name,
-    count: 0,
     location,
-    kind,
+    category,
+    subCategory,
+    cableEndLeft,
+    cableEndLeftGender,
+    cableEndRight,
+    cableEndRightGender,
+    parameter1,
+    parameter2,
     createdAt: serverTimestamp(),
   });
 
@@ -322,24 +339,37 @@ function renderItem(docSnap) {
   clone.id = ""; // remove duplicate ID
 
   // find elements inside clone
-  const titleEl = clone.querySelector(".card-info-text.item-name");
-  const countEl = clone.querySelector(".card-info-text.item-amount");
+  const nameEl = clone.querySelector(".card-info-text.item-name");
+  const amountEl = clone.querySelector(".card-info-text.item-amount");
   const locationEl = clone.querySelector(".card-info-text.item-location");
+  const categoryEl = clone.querySelector(".card-info-text.item-category");
+  const subCategoryEl = clone.querySelector(".card-info-text.item-subcategory");
+  const parameters1El = clone.querySelector(".card-info-text.item-parameters");
+  const parameters2El = clone.querySelector(
+    ".card-info-text.item-parameters-2",
+  );
+
   // const incBtn = clone.querySelector(".card-info-text");
   // const decBtn = clone.querySelector(".card-info-text");
   // const deleteBtn = clone.querySelector(".card-info-text");
 
   // overwrite placeholder text
-  titleEl.textContent = data.name;
-  countEl.textContent = data.count;
+  nameEl.textContent = data.name;
+  amountEl.textContent = data.count;
+  locationEl.textContent = data.location;
+  categoryEl.textContent = data.category;
+  subCategoryEl.textContent = data.subCategory;
+  parameters1El.textContent = data.parameters1El;
+  parameters2El.textContent = data.parameters2El;
 
-  let location = clone.querySelector(".counter-location");
+  /*
   if (!locationEl) {
     locationEl = document.createElement("div");
-    locationEl.className = "counter-location";
+    locationEl.className = "card-info-text.item-location";
     clone.appendChild(locationEl);
   }
   locationEl.textContent = `Location: ${data.location}`;
+  */
 
   // increment/decrement
   incBtn.onclick = () =>
