@@ -32,7 +32,7 @@ import {
   categoryOptions,
   gearSubcategoryOptions,
   gearSubSubcategoryOptions,
-} from "selector-options.js";
+} from "./selector-options.js";
 
 console.log(locationOptions);
 
