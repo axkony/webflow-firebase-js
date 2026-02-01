@@ -32,8 +32,6 @@ import {
   categoryOptions,
   gearSubcategoryOptions,
   gearSubSubcategoryOptions,
-  kabelLängeOptions,
-  steckerGenderOptions,
 } from "selector-options.js";
 
 console.log(locationOptions);
@@ -46,6 +44,7 @@ const itemsCol = collection(db, "items");
 
 const addItemButton = document.getElementById("inp-add-item-btn");
 const itemNameInput = document.getElementById("inp-item-name");
+const itemAmountInput = document.getElementById("inp-item-amount");
 const locationSelect = document.getElementById("inp-item-location");
 const categorySelect = document.getElementById("inp-item-category");
 const subCategorySelect = document.getElementById("inp-item-subcategory");
@@ -277,6 +276,7 @@ async function nameExists(name) {
 // ========================= ADD ITEM BUTTON=========================
 addItemButton.addEventListener("click", async () => {
   const name = "itemname";
+  const amount = itemAmountInput.value;
   const location = locationSelect.value;
   const category = categorySelect.value;
   const subCategory = subCategorySelect.value;
@@ -302,6 +302,7 @@ addItemButton.addEventListener("click", async () => {
 
   await addDoc(itemsCol, {
     name,
+    amount,
     location,
     category,
     subCategory,
@@ -355,7 +356,7 @@ function renderItem(docSnap) {
 
   // overwrite placeholder text
   nameEl.textContent = data.name;
-  amountEl.textContent = data.count;
+  amountEl.textContent = data.amount;
   locationEl.textContent = data.location;
   categoryEl.textContent = data.category;
   subCategoryEl.textContent = data.subCategory;
@@ -373,9 +374,9 @@ function renderItem(docSnap) {
 
   // increment/decrement
   incBtn.onclick = () =>
-    updateDoc(doc(db, "items", id), { count: increment(1) });
+    updateDoc(doc(db, "items", id), { amount: increment(1) });
   decBtn.onclick = () =>
-    updateDoc(doc(db, "items", id), { count: increment(-1) });
+    updateDoc(doc(db, "items", id), { amount: increment(-1) });
 
   // delete item
   if (deleteBtn) {
@@ -393,7 +394,7 @@ function renderItem(docSnap) {
   onSnapshot(doc(db, "items", id), (snap) => {
     const itemData = snap.data();
     if (!itemData) return; // document might have been deleted
-    countEl.textContent = itemData.count;
+    amountEl.textContent = itemData.count;
     locationEl.textContent = `Location: ${itemData.location}`;
   });
 
