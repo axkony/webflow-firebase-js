@@ -294,7 +294,7 @@ addItemButton.addEventListener("click", async () => {
     name = itemNameInput.value.trim();
   } else if (subCategory == "Audiokabel") {
     name = subCategory.concat(
-      "\n",
+      <br>,
       cableEndLeft,
       " ",
       cableEndLeftGender,
