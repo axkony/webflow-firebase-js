@@ -288,11 +288,21 @@ addItemButton.addEventListener("click", async () => {
   const parameter1 = specificSelectParameter1.value;
   const parameter2 = specificSelectParameter2.value;
 
+  // add name or make the name is none is given
+
   if (itemNameInput.value) {
     name = itemNameInput.value.trim();
-  } else {
-    name = category.concat(" ", subCategory).concat(" ");
-    console.log(category.concat(" ", subCategory).concat(" "));
+  } else if (category == "Audiokabel") {
+    name = subCategory.concat(
+      "\n",
+      cableEndLeft,
+      " ",
+      cableEndLeftGender,
+      " -> ",
+      cableEndRight,
+      " ",
+      cableEndRightGender,
+    );
   }
 
   /*
