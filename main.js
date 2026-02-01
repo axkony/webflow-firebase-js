@@ -276,7 +276,7 @@ async function nameExists(name) {
 
 // ========================= ADD ITEM BUTTON=========================
 addItemButton.addEventListener("click", async () => {
-  const name = "itemname";
+  let name = "itemname";
   const amount = itemAmountInput.value;
   const location = locationSelect.value;
   const category = categorySelect.value;
@@ -363,8 +363,8 @@ function renderItem(docSnap) {
   locationEl.textContent = data.location;
   categoryEl.textContent = data.category;
   subCategoryEl.textContent = data.subCategory;
-  parameters1El.textContent = data.parameters1El;
-  parameters2El.textContent = data.parameters2El;
+  parameters1El.textContent = data.parameters1;
+  parameters2El.textContent = data.parameters2;
 
   /*
   if (!locationEl) {
@@ -397,7 +397,7 @@ function renderItem(docSnap) {
   onSnapshot(doc(db, "items", id), (snap) => {
     const itemData = snap.data();
     if (!itemData) return; // document might have been deleted
-    amountEl.textContent = itemData.count;
+    amountEl.textContent = itemData.amount;
     locationEl.textContent = `Location: ${itemData.location}`;
   });
 
