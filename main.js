@@ -34,7 +34,7 @@ import {
   gearSubSubcategoryOptions,
 } from "./selector-options.js";
 
-console.log(locationOptions);
+import { cardCss } from "./css-properties.js";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -290,9 +290,7 @@ addItemButton.addEventListener("click", async () => {
 
   // add name or make the name is none is given
 
-  if (itemNameInput.value != "") {
-    name = itemNameInput.value.trim();
-  } else if (subCategory == "Audiokabel") {
+  if (subCategory == "Audiokabel" || subCategory == "Stromkabel") {
     name = cableEndLeft.concat(
       " ",
       cableEndLeftGender,
@@ -301,11 +299,12 @@ addItemButton.addEventListener("click", async () => {
       " ",
       cableEndRightGender,
     );
+  } else if (itemNameInput.value != "") {
+    name = itemNameInput.value.trim();
   }
 
   /*
   if (!name || !location || !category || !subCategory) return;
-
   
   if (await nameExists(name)) {
     alert("Es gibt schon was mit diesem Namen");
@@ -373,6 +372,11 @@ function renderItem(docSnap) {
   subCategoryEl.textContent = data.subCategory;
   parameters1El.textContent = data.parameters1;
   parameters2El.textContent = data.parameters2;
+
+  // change background color
+
+  clone.style.backgroundColor =
+    cardCss.backgroundColors[data.subCategory] ?? "";
 
   /*
   if (!locationEl) {
