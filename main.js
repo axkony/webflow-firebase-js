@@ -222,7 +222,7 @@ subCategorySelect.addEventListener("change", () => {
       break;
   }
 });
-
+/*
 async function runQuery() {
   let q = query(collection(db, "items"));
 
@@ -256,7 +256,7 @@ async function runQuery() {
   const snapshot = await getDocs(q);
   renderResults(snapshot.docs);
 }
-
+*/
 function renderResults(docs) {
   itemsContainer.innerHTML = "";
   if (docs.length === 0) {
@@ -373,7 +373,7 @@ function renderItem(docSnap) {
   }
   locationEl.textContent = `Location: ${data.location}`;
   */
-
+  /*
   // increment/decrement
   incBtn.onclick = () =>
     updateDoc(doc(db, "items", id), { amount: increment(1) });
@@ -391,7 +391,7 @@ function renderItem(docSnap) {
       }
     };
   }
-
+*/
   // live updates for count & location
   onSnapshot(doc(db, "items", id), (snap) => {
     const itemData = snap.data();
