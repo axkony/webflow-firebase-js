@@ -105,7 +105,8 @@ resetUI();
 
 //initial fill location
 fillSelect(locationSelect, locationOptions);
-console.log(locationOptions, categoryOptions);
+console.log(locationOptions);
+console.log("testLOG");
 
 // LOCATION ---> CATEGORY ENABLE & FILL
 
