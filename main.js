@@ -292,7 +292,7 @@ addItemButton.addEventListener("click", async () => {
 
   if (itemNameInput.value != "") {
     name = itemNameInput.value.trim();
-  } else if (category == "Audiokabel") {
+  } else if (subCategory == "Audiokabel") {
     name = subCategory.concat(
       "\n",
       cableEndLeft,
