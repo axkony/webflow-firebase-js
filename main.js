@@ -290,7 +290,7 @@ addItemButton.addEventListener("click", async () => {
 
   // add name or make the name is none is given
 
-  if (itemNameInput.value) {
+  if (itemNameInput.value != "") {
     name = itemNameInput.value.trim();
   } else if (category == "Audiokabel") {
     name = subCategory.concat(
