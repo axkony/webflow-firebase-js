@@ -263,7 +263,6 @@ function renderResults(docs) {
   }
   docs.forEach((doc) => {
     const data = doc.data();
-    console.log(data);
   });
 }
 
@@ -365,6 +364,9 @@ function renderItem(docSnap) {
   // const deleteBtn = clone.querySelector(".card-info-text");
 
   // overwrite placeholder text
+  if (data.subCategory == "Audiokabel" || data.subCategory == "Stromkabel") {
+    nameEl.textContent = `${data.cableEndLeft} ${data.cableEndSelectLeftGender} -> ${data.cableEndRight} ${data.cableEndRightGender} [${data.parameter1}]`;
+  }
   nameEl.textContent = data.name;
   amountEl.textContent = data.amount;
   locationEl.textContent = data.location;
@@ -405,18 +407,13 @@ function renderItem(docSnap) {
     };
   }
 */
+
   // live updates for count & location
   onSnapshot(doc(db, "items", id), (snap) => {
     const itemData = snap.data();
     if (!itemData) return; // document might have been deleted
-    amountEl.textContent = `Anzahl: ${itemData.amount}`;
-    locationEl.textContent = `Ort: ${itemData.location}`;
-    categoryEl.textContent = `Art: ${itemData.category}`;
-    locationEl.textContent = `Art2: ${itemData.subCategory}`;
-    if (itemData.subcategory == "Audiokabel") {
-      parameters1El.textcontent = `Stecker Links: ${itemData.parameter1}`;
-      parameters2El.textcontent = `Stecker Rechts: ${itemData.parameter2}`;
-    }
+    amountEl.textContent = `${itemData.amount}`;
+    locationEl.textContent = `${itemData.location}`;
   });
 
   itemsContainer.appendChild(clone);
