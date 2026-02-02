@@ -24,6 +24,13 @@ const firebaseConfig = {
   messagingSenderId: "329718402578",
   appId: "1:329718402578:web:c97672be87794f717d12cb",
 };
+// ========================= ALGOLIA CONFIG =========================
+const algoliaClient = algoliasearch(
+  "PHKDGDHHPT",
+  "10de5fef4e5080fb50378b63aa9a9761",
+);
+
+const algoliaIndex = algoliaClient.initIndex("items");
 
 // ======================= import selector options =======================
 
@@ -69,6 +76,12 @@ const itemsTemplate = document.querySelector(".item-template");
 const queryContainer = document.getElementById("query-form");
 const queryContainerButton = document.getElementById("query-form-button");
 
+const searchInput = document.getElementById("q-text-inp");
+const qLocationSelect = document.getElementById("q-sel-location");
+const qCategorySelect = document.getElementById("q-sel-category");
+const qSubCategorySelect = document.getElementById("q-sel-subCategory");
+const qParameter1Select = document.getElementById("q-sel-parameter-1");
+
 //helpers
 
 function show(element) {
@@ -79,16 +92,17 @@ function hide(element) {
   element.style.display = "none";
 }
 
-function clearSelect(selectElement) {
-  selectElement.options.length = 0;
+function clearSelect(sel) {
+  sel.innerHTML = "";
 }
 
 function fillSelect(selectElement, options) {
   clearSelect(selectElement);
-  options.forEach((o) => {
-    selectElement.appendChild(new Option(o.text, o.value));
-  });
+  options.forEach((o) =>
+    selectElement.appendChild(new Option(o.text, o.value)),
+  );
 }
+
 function resetUI(select) {
   [
     categorySelect,
@@ -108,6 +122,9 @@ resetUI();
 
 //initial fill location
 fillSelect(locationSelect, locationOptions);
+
+// hide / show query form
+
 hide(queryContainer);
 
 queryContainerButton.addEventListener("click", () => {
@@ -118,6 +135,98 @@ queryContainerButton.addEventListener("click", () => {
     hide(queryContainer);
     queryContainerButton.innerHTML = "Artikel suchen";
   }
+});
+
+// ========================= SEARCH STATE =========================
+const searchState = {
+  text: "",
+  location: [],
+  category: [],
+  subCategory: [],
+  parameter1: [],
+  parameter2: [],
+};
+
+function buildAlgoliaFilters() {
+  const filters = [];
+
+  if (searchState.location.length) {
+    filters.push(
+      `(${searchState.location.map((v) => `location:"${v}"`).join(" OR ")})`,
+    );
+  }
+
+  if (searchState.category.length) {
+    filters.push(
+      `(${searchState.category.map((v) => `category:"${v}"`).join(" OR ")})`,
+    );
+  }
+
+  if (searchState.subCategory.length) {
+    filters.push(
+      `(${searchState.subCategory.map((v) => `subCategory:"${v}"`).join(" OR ")})`,
+    );
+  }
+
+  if (searchState.parameter1.length) {
+    filters.push(
+      `(${searchState.parameter1.map((v) => `parameter1:"${v}"`).join(" OR ")})`,
+    );
+  }
+
+  if (searchState.parameter2.length) {
+    filters.push(
+      `(${searchState.parameter2.map((v) => `parameter2:"${v}"`).join(" OR ")})`,
+    );
+  }
+
+  return filters.join(" AND ");
+}
+
+async function runAlgoliaSearch() {
+  const { hits } = await algoliaIndex.search(searchState.text, {
+    filters: buildAlgoliaFilters(),
+    hitsPerPage: 50,
+  });
+
+  itemsContainer.innerHTML = "";
+  hits.forEach(renderAlgoliaItem);
+}
+
+searchInput.addEventListener("input", (e) => {
+  searchState.text = e.target.value.trim();
+  runAlgoliaSearch();
+});
+
+/* ========================= QUERY FILTER WIRES ========================= */
+
+qLocationSelect.addEventListener("change", () => {
+  searchState.location = qLocationSelect.value ? [qLocationSelect.value] : [];
+  runAlgoliaSearch();
+});
+
+qCategorySelect.addEventListener("change", () => {
+  searchState.category = qCategorySelect.value ? [qCategorySelect.value] : [];
+
+  // reset dependent filters
+  searchState.subCategory = [];
+  qSubCategorySelect.value = "";
+
+  runAlgoliaSearch();
+});
+
+qSubCategorySelect.addEventListener("change", () => {
+  searchState.subCategory = qSubCategorySelect.value
+    ? [qSubCategorySelect.value]
+    : [];
+  runAlgoliaSearch();
+});
+
+qParameter1Select.addEventListener("change", () => {
+  searchState.parameter1 = qParameter1Select.value
+    ? [qParameter1Select.value]
+    : [];
+  runAlgoliaSearch();
 });
 
 // LOCATION ---> CATEGORY ENABLE & FILL
@@ -233,57 +342,6 @@ subCategorySelect.addEventListener("change", () => {
       break;
   }
 });
-/*
-async function runQuery() {
-  let q = query(collection(db, "items"));
-
-  if (locationSelect.value) {
-    q = query(q, where("location", "==", locationSelect.value));
-  }
-  if (categorySelect.value) {
-    q = query(q, where("category", "==", categorySelect.value));
-  }
-  if (subCategorySelect.value) {
-    q = query(q, where("subCategory", "==", subCategorySelect.value));
-  }
-  if (cableEndSelectLeft.value) {
-    q = query(q, where("cableEndLeft", "==", cableEndSelectLeft.value));
-  }
-  if (cableEndSelectRight.value) {
-    q = query(q, where("cableEndRight", "==", cableEndSelectRight.value));
-  }
-  if (cableEndSelectRightGender.value) {
-    q = query(
-      q,
-      where("cableEndRightGender", "==", cableEndSelectRightGender.value),
-    );
-  }
-  if (cableEndSelectLeftGender.value) {
-    q = query(
-      q,
-      where("cableEndLeftGender", "==", cableEndSelectLeftGender.value),
-    );
-  }
-  const snapshot = await getDocs(q);
-  renderResults(snapshot.docs);
-}
-*/
-function renderResults(docs) {
-  itemsContainer.innerHTML = "";
-  if (docs.length === 0) {
-    return;
-  }
-  docs.forEach((doc) => {
-    const data = doc.data();
-  });
-}
-
-// ========================= HELPER: CHECK UNIQUE NAME =========================
-async function nameExists(name) {
-  const q = query(itemsCol, where("name", "==", name));
-  const snap = await getDocs(q);
-  return !snap.empty;
-}
 
 // ========================= ADD ITEM BUTTON=========================
 addItemButton.addEventListener("click", async () => {
@@ -299,7 +357,7 @@ addItemButton.addEventListener("click", async () => {
   const parameter1 = specificSelectParameter1.value;
   const parameter2 = specificSelectParameter2.value;
 
-  // add name or make the name is none is given
+  // add name or make the name if none is given
 
   if (subCategory == "Audiokabel" || subCategory == "Stromkabel") {
     name = cableEndLeft.concat(
@@ -314,13 +372,6 @@ addItemButton.addEventListener("click", async () => {
     name = itemNameInput.value.trim();
   }
 
-  /*
-  if (!name || !location || !category || !subCategory) return;
-  
-  if (await nameExists(name)) {
-    alert("Es gibt schon was mit diesem Namen");
-  }
-  */
   await addDoc(itemsCol, {
     name,
     amount,
@@ -338,16 +389,6 @@ addItemButton.addEventListener("click", async () => {
 
   itemNameInput.value = "";
   locationSelect.value = ""; // reset select to placeholder
-});
-
-// ========================= LISTEN FOR CHANGES & RENDER =========================
-const q = query(itemsCol, orderBy("createdAt"));
-
-onSnapshot(q, (snapshot) => {
-  itemsContainer.innerHTML = ""; // clear old items
-  snapshot.forEach((docSnap) => {
-    renderItem(docSnap);
-  });
 });
 
 // ========================= RENDER ITEM FUNCTION (CLONE itemsTemplate) =========================
@@ -430,3 +471,32 @@ function renderItem(docSnap) {
 
   itemsContainer.appendChild(clone);
 }
+
+function renderAlgoliaItem(data) {
+  const clone = itemsTemplate.cloneNode(true);
+  clone.style.display = "flex";
+  clone.id = "";
+
+  clone.querySelector(".item-name").textContent = data.name;
+  clone.querySelector(".item-amount").textContent = data.amount;
+  clone.querySelector(".item-location").textContent = data.location;
+  clone.querySelector(".item-category").textContent = data.category;
+  clone.querySelector(".item-subcategory").textContent = data.subCategory;
+  clone.querySelector(".item-parameters").textContent = data.parameter1 ?? "";
+  clone.querySelector(".item-parameters-2").textContent = data.parameter2 ?? "";
+
+  clone.style.backgroundColor =
+    cardCss.backgroundColors[data.subCategory] ?? "";
+
+  itemsContainer.appendChild(clone);
+}
+
+if (
+  qCategorySelect ||
+  qLocationSelect ||
+  qParameter1Select ||
+  qSubCategorySelect ||
+  searchInput != ""
+) {
+  console.log(Algoliasearch);
+} else console.log(Allitems);
