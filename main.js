@@ -485,13 +485,3 @@ function renderAlgoliaItem(data) {
 
   itemsContainer.appendChild(clone);
 }
-
-if (
-  qCategorySelect ||
-  qLocationSelect ||
-  qParameter1Select ||
-  qSubCategorySelect ||
-  searchInput != ""
-) {
-  console.log("Algoliasearch");
-} else console.log("Allitems");
