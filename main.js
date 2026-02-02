@@ -113,10 +113,10 @@ hide(queryContainer);
 queryContainerButton.addEventListener("click", () => {
   if (queryContainer.style.display == "none") {
     show(queryContainer);
-    queryContainer.innerHTML = "Suche verbergen";
+    queryContainerButton.innerHTML = "Suche verbergen";
   } else {
     hide(queryContainer);
-    queryContainer.innerHTML = "Artikel suchen";
+    queryContainerButton.innerHTML = "Artikel suchen";
   }
 });
 
