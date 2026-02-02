@@ -66,8 +66,8 @@ const specificSelectParameter2 = document.getElementById(
 const itemsContainer = document.getElementById("items-container");
 const itemsTemplate = document.querySelector(".item-template");
 
-const queryContainer = document.getElementById(".query-form");
-const queryContainerButton = document.getElementById(".query-form-button");
+const queryContainer = document.getElementById("query-form");
+const queryContainerButton = document.getElementById("query-form-button");
 
 //helpers
 
