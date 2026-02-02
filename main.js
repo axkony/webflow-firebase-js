@@ -66,6 +66,9 @@ const specificSelectParameter2 = document.getElementById(
 const itemsContainer = document.getElementById("items-container");
 const itemsTemplate = document.querySelector(".item-template");
 
+const queryContainer = document.getElementById(".query-form");
+const queryContainerButton = document.getElementById(".query-form-button");
+
 //helpers
 
 function show(element) {
@@ -105,8 +108,17 @@ resetUI();
 
 //initial fill location
 fillSelect(locationSelect, locationOptions);
-console.log(locationOptions);
-console.log("testLOG");
+hide(queryContainer);
+
+queryContainerButton.addEventListener("click", () => {
+  if (queryContainer.style.display == "none") {
+    show(queryContainer);
+    queryContainer.innerHTML = "Suche verbergen";
+  } else {
+    hide(queryContainer);
+    queryContainer.innerHTML = "Artikel suchen";
+  }
+});
 
 // LOCATION ---> CATEGORY ENABLE & FILL
 
