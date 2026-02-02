@@ -3,16 +3,10 @@ import {
   getFirestore,
   collection,
   addDoc,
-  query,
-  where,
-  getDocs,
   onSnapshot,
-  updateDoc,
-  deleteDoc,
-  increment,
   doc,
   serverTimestamp,
-  orderBy,
+  updateDoc,
 } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 
 // ========================= FIREBASE CONFIG =========================
@@ -392,6 +386,7 @@ addItemButton.addEventListener("click", async () => {
 });
 
 // ========================= RENDER ITEM FUNCTION (CLONE itemsTemplate) =========================
+/*
 function renderItem(docSnap) {
   const data = docSnap.data();
   const id = docSnap.id;
@@ -441,7 +436,7 @@ function renderItem(docSnap) {
   }
   locationEl.textContent = `Location: ${data.location}`;
   */
-  /*
+/*
   // increment/decrement
   incBtn.onclick = () =>
     updateDoc(doc(db, "items", id), { amount: increment(1) });
@@ -459,7 +454,7 @@ function renderItem(docSnap) {
       }
     };
   }
-*/
+
 
   // live updates for count & location
   onSnapshot(doc(db, "items", id), (snap) => {
@@ -471,7 +466,7 @@ function renderItem(docSnap) {
 
   itemsContainer.appendChild(clone);
 }
-
+*/
 function renderAlgoliaItem(data) {
   const clone = itemsTemplate.cloneNode(true);
   clone.style.display = "flex";
@@ -498,5 +493,5 @@ if (
   qSubCategorySelect ||
   searchInput != ""
 ) {
-  console.log(Algoliasearch);
-} else console.log(Allitems);
+  console.log("Algoliasearch");
+} else console.log("Allitems");
