@@ -44,4 +44,7 @@ qSelectors.addEventListener("change", () => {
     fillSelect(qSubCategorySelect, gearSubcategoryOptions);
     showBlock(qSubCategorySelect);
   }
+  console.log(qCategorySelect.value);
+  console.log(qSubCategorySelect.value);
+  console.log(qLocationSelect.value);
 });
