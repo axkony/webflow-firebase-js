@@ -26,6 +26,10 @@ function showBlock(e) {
   e.style.display = "block";
 }
 
+// ============== init ===============
+hide(qSubCategorySelect);
+hide(qParameter1Select);
+
 queryFormButton.addEventListener("click", () => {
   if (queryForm.style.display != "none") {
     hide(queryForm);
@@ -38,5 +42,6 @@ fillSelect(qCategorySelect, categoryOptions);
 qSelectors.addEventListener("change", () => {
   if (qCategorySelect.value == "Gear") {
     fillSelect(qSubCategorySelect, gearSubcategoryOptions);
+    showBlock(qSubCategorySelect);
   }
 });
