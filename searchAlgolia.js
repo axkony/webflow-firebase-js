@@ -29,7 +29,7 @@ import {
 
 function fillSelect(sel, options) {
   sel.innerHTML = "";
-  options.forEAch(({ text, value }) => {
+  options.forEach(({ text, value }) => {
     const option = document.createElement("option");
     option.textContent = text;
     option.value = value;
