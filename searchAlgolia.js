@@ -64,6 +64,9 @@ queryFormButton.addEventListener("click", () => {
 
 fillSelect(qLocationSelect, locationOptions);
 fillSelect(qCategorySelect, categoryOptions);
+if (qCategorySelect.value == "Gear") {
+  fillSelect(qSubCategorySelect, gearSubcategoryOptions);
+}
 
 /* ========================= FILTER BUILDER ========================= */
 
@@ -93,8 +96,10 @@ function buildFilters() {
       `(${searchState.parameter1.map((v) => `parameter1:"${v}"`).join(" OR ")})`,
     );
   }
+  console.log(f);
 
   return f.join(" AND ");
+  console.log(f);
 }
 
 /* ========================= SEARCH ========================= */
