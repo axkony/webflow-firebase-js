@@ -1,3 +1,11 @@
+// Query DOM things (fill selectors etc) in searchAgolia.js
+
+import {
+  locationOptions,
+  categoryOptions,
+  gearSubcategoryOptions,
+} from "./selector-options";
+
 const queryFormButton = document.getElementById("query-form-button");
 const queryForm = document.getElementById("query-form");
 const searchInput = document.getElementById("search-input");
@@ -12,11 +20,6 @@ const qSubCategorySelect = document.getElementById("q-sel-subcategory");
 const qParameter1Select = document.getElementById("q-sel-parameter1");
 
 // ================= helpers ===================
-
-function fillSelect(sel, options) {
-  sel.innerHTML = "<option value=''></option>";
-  options.forEach((o) => sel.appendChild(new Option(o.text, o.value)));
-}
 
 function hide(e) {
   e.style.display = "none";
@@ -36,17 +39,4 @@ queryFormButton.addEventListener("click", () => {
   if (queryForm.style.display != "none") {
     hide(queryForm);
   } else showBlock(queryForm);
-});
-
-fillSelect(qLocationSelect, locationOptions);
-fillSelect(qCategorySelect, categoryOptions);
-
-qSelectors.addEventListener("change", () => {
-  if (qCategorySelect.value == "Gear") {
-    fillSelect(qSubCategorySelect, gearSubcategoryOptions);
-    showBlock(qSubCategorySelect);
-  }
-  console.log(qCategorySelect.value);
-  console.log(qSubCategorySelect.value);
-  console.log(qLocationSelect.value);
 });
