@@ -27,7 +27,7 @@ import {
   gearSubcategoryOptions,
 } from "./selector-options.js";
 
-function fillSelect(sel, contents) {
+function fillSelect(sel, options) {
   sel.innerHTML = "";
   options.forEAch(({ text, value }) => {
     const option = document.createElement("option");
