@@ -27,6 +27,16 @@ import {
   gearSubcategoryOptions,
 } from "./selector-options.js";
 
+function fillSelect(sel, contents) {
+  sel.innerHTML = "";
+  options.forEAch(({ text, value }) => {
+    const option = document.createElement("option");
+    option.textContent = text;
+    option.value = value;
+    sel.appendChild(option);
+  });
+}
+
 /* ========================= STATE ========================= */
 
 const searchState = {
