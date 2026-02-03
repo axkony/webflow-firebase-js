@@ -129,7 +129,7 @@ qCategorySelect.addEventListener("change", () => {
     hide(qSubCategorySelect);
     qSubCategorySelect.value = "";
   } else if (v == "Gear") {
-    show(qSubCategorySelect);
+    showBlock(qSubCategorySelect);
     fillSelect(qSubCategorySelect, gearSubcategoryOptions);
   }
 
