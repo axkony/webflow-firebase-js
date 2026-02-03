@@ -120,7 +120,7 @@ qLocationSelect.addEventListener("change", () => {
 });
 
 qCategorySelect.addEventListener("change", () => {
-  v = qCategorySelect.value;
+  const v = qCategorySelect.value;
 
   searchState.category = v ? [v] : [];
   searchState.subCategory = [];
