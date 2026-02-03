@@ -59,7 +59,7 @@ function showBlock(e) {
 queryFormButton.addEventListener("click", () => {
   if (queryForm.style.display != "none") {
     hide(queryForm);
-  } else showFlex(queryForm);
+  } else showBlock(queryForm);
 });
 
 fillSelect(qLocationSelect, locationOptions);
