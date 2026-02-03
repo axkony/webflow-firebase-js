@@ -39,35 +39,6 @@ const searchState = {
 
 /* ========================= HELPERS ========================= */
 
-function fillSelect(sel, options) {
-  sel.innerHTML = "<option value=''></option>";
-  options.forEach((o) => sel.appendChild(new Option(o.text, o.value)));
-}
-
-function hide(e) {
-  e.style.display = "none";
-}
-function showFlex(e) {
-  e.style.display = "flex";
-}
-function showBlock(e) {
-  e.style.display = "block";
-}
-
-/* ========================= INIT ========================= */
-
-queryFormButton.addEventListener("click", () => {
-  if (queryForm.style.display != "none") {
-    hide(queryForm);
-  } else showBlock(queryForm);
-});
-
-fillSelect(qLocationSelect, locationOptions);
-fillSelect(qCategorySelect, categoryOptions);
-if (qCategorySelect.value == "Gear") {
-  fillSelect(qSubCategorySelect, gearSubcategoryOptions);
-}
-
 /* ========================= FILTER BUILDER ========================= */
 
 function buildFilters() {
