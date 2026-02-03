@@ -9,6 +9,8 @@ const index = algoliaClient.initIndex("items");
 
 /* ========================= DOM ========================= */
 
+const queryFormButton = document.getElementById("query-form-button");
+const queryForm = document.getElementById("query-form");
 const searchInput = document.getElementById("search-input");
 const itemsContainer = document.getElementById("items-container");
 const itemsTemplate = document.querySelector(".item-template");
@@ -42,7 +44,23 @@ function fillSelect(sel, options) {
   options.forEach((o) => sel.appendChild(new Option(o.text, o.value)));
 }
 
+function hide(e) {
+  e.style.display = "none";
+}
+function showFlex(e) {
+  e.style.display = "flex";
+}
+function showBlock(e) {
+  e.style.displaly = "block";
+}
+
 /* ========================= INIT ========================= */
+
+queryFormButton.addEventListener("click", () => {
+  if (queryForm.style.display != "none") {
+    hide(queryForm);
+  } else showFlex(queryForm);
+});
 
 fillSelect(qLocationSelect, locationOptions);
 fillSelect(qCategorySelect, categoryOptions);
