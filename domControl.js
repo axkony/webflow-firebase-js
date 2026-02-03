@@ -4,7 +4,7 @@ import {
   locationOptions,
   categoryOptions,
   gearSubcategoryOptions,
-} from "./selector-options";
+} from "./selector-options.js";
 
 const queryFormButton = document.getElementById("query-form-button");
 const queryForm = document.getElementById("query-form");
