@@ -37,7 +37,10 @@ const searchState = {
   parameter1: [],
 };
 
-/* ========================= HELPERS ========================= */
+/* ========================= INIT ========================= */
+
+fillSelect(qLocationSelect, locationOptions);
+fillSelect(qCategorySelect, categoryOptions);
 
 /* ========================= FILTER BUILDER ========================= */
 
