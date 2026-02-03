@@ -51,7 +51,7 @@ function showFlex(e) {
   e.style.display = "flex";
 }
 function showBlock(e) {
-  e.style.displaly = "block";
+  e.style.display = "block";
 }
 
 /* ========================= INIT ========================= */
