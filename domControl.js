@@ -34,6 +34,7 @@ function showBlock(e) {
 // ============== init ===============
 hide(qSubCategorySelect);
 hide(qParameter1Select);
+hide(queryForm);
 
 queryFormButton.addEventListener("click", () => {
   if (queryForm.style.display != "none") {
