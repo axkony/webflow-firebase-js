@@ -1,3 +1,3 @@
 import "./addItem.js";
 import "./searchAlgolia.js";
-import "./DOM-control";
+import "./domControl.js";
