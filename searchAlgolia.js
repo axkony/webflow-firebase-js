@@ -37,6 +37,16 @@ function fillSelect(sel, options) {
   });
 }
 
+function hide(e) {
+  e.style.display = "none";
+}
+function showFlex(e) {
+  e.style.display = "flex";
+}
+function showBlock(e) {
+  e.style.display = "block";
+}
+
 /* ========================= STATE ========================= */
 
 const searchState = {
@@ -110,13 +120,18 @@ qLocationSelect.addEventListener("change", () => {
 });
 
 qCategorySelect.addEventListener("change", () => {
-  searchState.category = qCategorySelect.value ? [qCategorySelect.value] : [];
+  v = qCategorySelect.value;
+
+  searchState.category = v ? [v] : [];
   searchState.subCategory = [];
 
-  fillSelect(
-    qSubCategorySelect,
-    gearSubcategoryOptions[qCategorySelect.value] || [],
-  );
+  if (v == "") {
+    hide(qSubCategorySelect);
+    qSubCategorySelect.value = "";
+  } else if (v == "Gear") {
+    show(qSubCategorySelect);
+    fillSelect(qSubCategorySelect, gearSubcategoryOptions);
+  }
 
   runSearch();
 });
