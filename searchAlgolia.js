@@ -17,8 +17,8 @@ const itemsTemplate = document.querySelector(".item-template");
 
 const qLocationSelect = document.getElementById("q-sel-location");
 const qCategorySelect = document.getElementById("q-sel-category");
-const qSubCategorySelect = document.getElementById("q-sel-subCategory");
-const qParameter1Select = document.getElementById("q-sel-parameter-1");
+const qSubCategorySelect = document.getElementById("q-sel-subcategory");
+const qParameter1Select = document.getElementById("q-sel-parameter1");
 
 import { cardCss } from "./css-properties.js";
 import {
