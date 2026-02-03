@@ -11,6 +11,8 @@ const qCategorySelect = document.getElementById("q-sel-category");
 const qSubCategorySelect = document.getElementById("q-sel-subcategory");
 const qParameter1Select = document.getElementById("q-sel-parameter1");
 
+// ================= helpers ===================
+
 function fillSelect(sel, options) {
   sel.innerHTML = "<option value=''></option>";
   options.forEach((o) => sel.appendChild(new Option(o.text, o.value)));
