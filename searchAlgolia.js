@@ -97,9 +97,9 @@ function buildFilters() {
     );
   }
   console.log(f);
+  console.log(f.join("AND"));
 
   return f.join(" AND ");
-  console.log(f);
 }
 
 /* ========================= SEARCH ========================= */
@@ -119,6 +119,7 @@ async function runSearch() {
 searchInput.addEventListener("input", (e) => {
   searchState.text = e.target.value.trim();
   runSearch();
+  console.log(e.target.value.trim());
 });
 
 qLocationSelect.addEventListener("change", () => {
