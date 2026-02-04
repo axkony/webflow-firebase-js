@@ -25,6 +25,7 @@ import {
   locationOptions,
   categoryOptions,
   gearSubcategoryOptions,
+  gearSubSubcategoryOptions,
 } from "./selector-options.js";
 
 function fillSelect(sel, options) {
@@ -145,9 +146,11 @@ qSubCategorySelect.addEventListener("change", () => {
     hide(qParameter1Select);
   } else if (v == "Audiokabel") {
     showBlock(qParameter1Select);
-    fillSelect(parameter1, gearSubSubcategoryOptions.options.audiokabel);
+    fillSelect(qParameter1Select, gearSubSubcategoryOptions.options.audiokabel);
+  } else if (v == "Stromkabel") {
+    showBlock(qParameter1Select);
+    fillSelect(qParameter1Select, gearSubSubcategoryOptions.options.stromkabel);
   }
-
   runSearch();
 });
 
