@@ -91,6 +91,7 @@ function buildFilters() {
       `(${searchState.parameter1.map((v) => `parameter1:"${v}"`).join(" OR ")})`,
     );
   }
+  console.log(f);
 
   return f.join(" AND ");
 }
