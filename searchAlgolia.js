@@ -127,7 +127,6 @@ qCategorySelect.addEventListener("change", () => {
 
   if (v == "") {
     hide(qSubCategorySelect);
-    qSubCategorySelect.value = "";
   } else if (v == "Gear") {
     showBlock(qSubCategorySelect);
     fillSelect(qSubCategorySelect, gearSubcategoryOptions);
@@ -137,9 +136,18 @@ qCategorySelect.addEventListener("change", () => {
 });
 
 qSubCategorySelect.addEventListener("change", () => {
-  searchState.subCategory = qSubCategorySelect.value
-    ? [qSubCategorySelect.value]
-    : [];
+  const v = qSubCategorySelect.value;
+
+  searchState.subCategory = value ? [v] : [];
+  searchState.parameter1 = [v];
+
+  if (v == "") {
+    hide(qParameter1Select);
+  } else if (v == "Audiokabel") {
+    showBlock(qParameter1Select);
+    fillSelect(parameter1, gearSubSubcategoryOptions.options.audiokabel);
+  }
+
   runSearch();
 });
 
