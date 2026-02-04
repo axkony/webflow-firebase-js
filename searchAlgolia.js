@@ -139,7 +139,7 @@ qCategorySelect.addEventListener("change", () => {
 qSubCategorySelect.addEventListener("change", () => {
   const v = qSubCategorySelect.value;
 
-  searchState.subCategory = value ? [v] : [];
+  searchState.subCategory = v ? [v] : [];
   searchState.parameter1 = [v];
 
   if (v == "") {
